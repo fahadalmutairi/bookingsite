@@ -7,6 +7,49 @@ from django.contrib.auth.models import AbstractBaseUser, PermissionsMixin, BaseU
 
 
 # Create your models here.
+
+class Property(models.Model):
+	description = models.TextField()
+	bedrooms = models.IntegerField(required=True)
+	floors = models.IntegerField(required=True)
+	address = models.ForeignKey('main.Address', required=True)
+	rate_by_day = models.IntegerField(required=True)
+	rate_by_week = models.IntegerField(required=True)
+	owner = models.ForeignKey('main.CustomUser')
+	longitude = models.FloatField()
+	latitude = models.FloatField()
+
+class Rating(models.Model):
+	rating_by_user = models.IntegerField()
+	property_object = models.ForeignKey('main.Property')
+	user = models.ForeignKey('main.CustomUser')
+
+
+class Schedule(models.Model):
+	date = models.DateTimeField()
+	booked = models.BooleanField(default=False)
+	property_object = models.ForeignKey('main.Property')
+
+
+class Address(models.Model):
+	country = models.CharField()
+	governorate = models.CharField()
+	area = models.CharField()
+
+class Amenities(model.Models):
+	name = models.CharField()
+	icon = models.ImageField(upload_to='amenities_icons')
+
+class PropertyImages(models.Model):
+	property_object = models.ForeignKey('main.Property')
+	image = models.ImageField(upload_to='propery_images')
+
+
+
+
+
+
+
 class CustomUserManager(BaseUserManager):
     def _create_user(self, email, password, is_staff, is_superuser, **extra_fields):
         now = timezone.now()
@@ -39,6 +82,7 @@ class CustomUser(AbstractBaseUser, PermissionsMixin):
     email = models.EmailField('email address', max_length=255, unique=True)
     first_name = models.CharField('first name', max_length=255, blank=True, null=True)
     last_name = models.CharField('last name', max_length=255, blank=True, null=True)
+    is_owner =  models.BooleanField('owner status', default=False)
     is_staff = models.BooleanField('staff status', default=False)
     is_active = models.BooleanField('active', default=False)
     date_joined = models.DateTimeField('date joined', auto_now_add=True)
