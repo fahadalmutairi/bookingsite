@@ -9,6 +9,7 @@ from django.contrib.auth.models import AbstractBaseUser, PermissionsMixin, BaseU
 # Create your models here.
 
 class Property(models.Model):
+	name = models.CharField(max_length=255)
 	description = models.TextField()
 	bedrooms = models.IntegerField(null=True,blank=True)
 	floors = models.IntegerField()
@@ -18,32 +19,42 @@ class Property(models.Model):
 	owner = models.ForeignKey('main.CustomUser')
 	longitude = models.FloatField()
 	latitude = models.FloatField()
+	
+	def __unicode__(self):
+		return "%s" %self.name
 
 class Rating(models.Model):
 	rating_by_user = models.IntegerField()
 	property_object = models.ForeignKey('main.Property')
 	user = models.ForeignKey('main.CustomUser')
-
+	def __unicode__(self):
+		return "%s by %s" %(self.property_object,self.user)
 
 class Schedule(models.Model):
 	date = models.DateTimeField()
 	booked = models.BooleanField(default=False)
 	property_object = models.ForeignKey('main.Property')
-
+	def __unicode__(self):
+		return "%s" %self.property_object
 
 class Address(models.Model):
 	country = models.CharField(max_length=255)
 	governorate = models.CharField(max_length=255)
 	area = models.CharField(max_length=255)
+	def __unicode__(self):
+		return "%s" %self.country
 
 class Amenities(models.Model):
 	name = models.CharField(max_length=255, null=True, blank=True)
 	icon = models.ImageField(upload_to='amenities_icons', null=True, blank=True)
+	def __unicode__(self):
+		return "%s" %self.name
 
 class PropertyImages(models.Model):
 	property_object = models.ForeignKey('main.Property')
 	image = models.ImageField(upload_to='propery_images')
-
+	def __unicode__(self):
+		return "image: %s" %self.propery_object
 
 
 
