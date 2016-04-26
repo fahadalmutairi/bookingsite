@@ -7,4 +7,7 @@ urlpatterns = [
     # url(r'^blog/', include('blog.urls')),
 
     url(r'^admin/', include(admin.site.urls)),
+    url(r'addproperty/$', 'main.views.add_property'),
+    url(r'editproperty/(?P<pk>.+)/$', 'main.views.edit_property'),
+
 ]
