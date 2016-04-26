@@ -10,11 +10,11 @@ from django.contrib.auth.models import AbstractBaseUser, PermissionsMixin, BaseU
 
 class Property(models.Model):
 	description = models.TextField()
-	bedrooms = models.IntegerField(required=True)
-	floors = models.IntegerField(required=True)
-	address = models.ForeignKey('main.Address', required=True)
-	rate_by_day = models.IntegerField(required=True)
-	rate_by_week = models.IntegerField(required=True)
+	bedrooms = models.IntegerField(null=True,blank=True)
+	floors = models.IntegerField()
+	address = models.ForeignKey('main.Address', blank=True, null=True)
+	rate_by_day = models.IntegerField(blank=True, null=True)
+	rate_by_week = models.IntegerField(blank=True, null=True)
 	owner = models.ForeignKey('main.CustomUser')
 	longitude = models.FloatField()
 	latitude = models.FloatField()
@@ -32,19 +32,17 @@ class Schedule(models.Model):
 
 
 class Address(models.Model):
-	country = models.CharField()
-	governorate = models.CharField()
-	area = models.CharField()
+	country = models.CharField(max_length=255)
+	governorate = models.CharField(max_length=255)
+	area = models.CharField(max_length=255)
 
-class Amenities(model.Models):
-	name = models.CharField()
-	icon = models.ImageField(upload_to='amenities_icons')
+class Amenities(models.Model):
+	name = models.CharField(max_length=255, null=True, blank=True)
+	icon = models.ImageField(upload_to='amenities_icons', null=True, blank=True)
 
 class PropertyImages(models.Model):
 	property_object = models.ForeignKey('main.Property')
 	image = models.ImageField(upload_to='propery_images')
-
-
 
 
 
