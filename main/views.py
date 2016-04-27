@@ -5,8 +5,7 @@ from django.template import RequestContext
 from django.contrib.auth import authenticate, login , logout
 from django.contrib.auth.decorators import login_required
 from django.http import HttpResponse , Http404, HttpResponseRedirect 
-
-
+from django.contrib.auth.decorators import login_required
 # Create your views here.
 
 
@@ -29,14 +28,16 @@ def edit_profile(request):
 	return render(request,'edit_profile.html', context)
 
 
+@login_required
 def profile_page(request):
 	context={}
 	print request.user
-	print request.user.pk
-	try:
-		context['user'] =CustomUser.objects.get(pk=request.user.pk)
-	except Exception, e :
-		raise Http404('404')
+	if request.user.is_owner :
+		properties = request.user.property_set.all()
+		context['property']= properties
+	else:			
+		pass
+	context['user']= CustomUser.objects.get(pk=request.user.pk)
 	return render(request,'profile_page.html', context)
 
 

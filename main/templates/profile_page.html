@@ -1,0 +1,35 @@
+{% extends 'base.html' %}
+
+{% block body %}
+
+	<p>Email: {{user.email}} </p>
+	<p>First Name: {{user.first_name}} </p>
+	<p>Last Name: {{ user.last_name}} </p>
+	<p>Date Joined: {{user.date_joined}} </p>
+
+	<a href="/edit_profile/">Edit Profile</a>
+	<br>
+
+	{% if request.user.is_owner %}
+		<table class="table table-bordered table-hover table-striped">
+			<thead>
+				<tr>
+					<th>#</th>
+					<th>name</th>
+				</tr>
+			</thead>
+			<tbody>
+				{% for property in user.property_set.all %}
+					{% if property %}
+					<tr>
+						<td>{{  property.pk }}</td>
+						<td>{{  property.name }}</td>
+					</tr>		
+					{% endif %}
+				{% endfor %}
+			</tbody>
+		</table>
+
+	{% endif %}
+			
+{% endblock%}
