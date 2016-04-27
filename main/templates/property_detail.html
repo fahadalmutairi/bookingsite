@@ -20,8 +20,8 @@
             </div>
 
             <div class="col-md-4">
-                <h3>Property Description</h3>
-                <p>{{% property.description %}}</p>
+                <h3>التفاصيل</h3>
+                <p>{{ property.description }}</p>
                 <h3>Amenties</h3>
                 {% for amenities in property.amenities_set.all %}
                 <ul>
@@ -38,7 +38,7 @@
         <div class="row">
 
             <div class="col-lg-12">
-                <h3 class="page-header">Related Projects</h3>
+                <h3 class="page-header">عقارات أخرى</h3>
             </div>
 
             <div class="col-sm-3 col-xs-6">
@@ -71,4 +71,4 @@
         <hr>
 
 
-{% end block %}
+{% endblock %}

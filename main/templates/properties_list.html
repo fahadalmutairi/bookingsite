@@ -48,12 +48,12 @@
                 <div class="row">
 
                     <div class="col-sm-4 col-lg-4 col-md-4">
-                    {%for property in properties%}                
+                    {%for property in properties%}
                         <div class="thumbnail">
                             <img src="{{MEDIA}}{{property.propertyimages_set.all.0}}" alt="">
                             <div class="caption">
                                 <h4 class="pull-right">{{property.price}}</h4>
-                                <h4><a href="#">{{property.name}}</a>
+                                <h4><a href="/property_detail/{{property.pk}}">{{property.name}}</a>
                                 </h4>
                                 <p>{{property.description}}<a target="_blank" href="http://www.bootsnipp.com">Bootsnipp - http://bootsnipp.com</a>.</p>
                             </div>
@@ -73,4 +73,4 @@
                 </div>
             </div>
         </div>
-{% end block %}
+{% endblock %}

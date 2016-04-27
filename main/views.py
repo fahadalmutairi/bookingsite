@@ -1,5 +1,5 @@
 from django.shortcuts import render
-
+from main.models import Property
 # Create your views here.
 
 def property_list(request):
@@ -10,7 +10,6 @@ def property_list(request):
 
 def property_detail(request, pk):
 	context = {}
-	property_object = Property.object.get(pk=pk)
+	property_object = Property.objects.get(pk=pk)
 	context['property']	= property_object
 	return render(request,'property_detail.html', context)
-
