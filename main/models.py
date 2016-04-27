@@ -52,9 +52,9 @@ class Amenities(models.Model):
 
 class PropertyImages(models.Model):
 	property_object = models.ForeignKey('main.Property')
-	image = models.ImageField(upload_to='propery_images')
+	image = models.ImageField(upload_to='property_images')
 	def __unicode__(self):
-		return "image: %s" %self.propery_object
+		return "image: %s" %self.property_object
 
 
 
