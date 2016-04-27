@@ -1,6 +1,19 @@
+{% extends 'base.html' %}
+
+{% block container %}
+<div class="row">
 
 <form action='/add_property/' method='POST' enctype='multipart/form-data'>
 {%csrf_token%}
 {{form.as_p}}
 <input type='submit' value ='Add'>
 </form>
+
+
+</div>
+        <!-- /.row -->
+
+        <hr>
+
+
+{% endblock %}

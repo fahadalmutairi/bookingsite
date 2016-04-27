@@ -8,6 +8,7 @@ class AddPropertyForm(forms.ModelForm):
 				'rate_by_week', 'longitude', 'latitude']
 
 class EditPropertyFrom(forms.ModelForm):
+	img = forms.ImageField()
 	class Meta:
 		model = Property
 		fields = ['name', 'description', 'bedrooms', 'floors', 'rate_by_day',
@@ -16,6 +17,6 @@ class EditPropertyFrom(forms.ModelForm):
 class AddImageForm(forms.ModelForm):
 	class Meta:
 		model = PropertyImages
-		fields = ['image']
+		fields = '__all__'
 
 

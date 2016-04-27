@@ -21,7 +21,7 @@
 
             <div class="col-md-4">
                 <h3>Property Description</h3>
-                <p>{{% property.description %}}</p>
+                <p>{{ property.description }}</p>
                 <h3>Amenties</h3>
                 {% for amenities in property.amenities_set.all %}
                 <ul>
@@ -71,4 +71,4 @@
         <hr>
 
 
-{% end block %}
+{% endblock %}

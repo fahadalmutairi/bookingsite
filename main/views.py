@@ -1,6 +1,6 @@
 from django.shortcuts import render, redirect, render_to_response,get_object_or_404
-from main.models import Property
-from main.forms import AddPropertyForm, EditPropertyFrom
+from main.models import Property, PropertyImages
+from main.forms import AddPropertyForm, EditPropertyFrom, AddImageForm
 # Create your views here.
 
 def add_property(request):
@@ -21,24 +21,39 @@ def edit_property(request, pk):
 	property_object = Property.objects.get(pk=pk)
 	if property_object.owner != request.user:
 		return redirect('/propertylist/')
-	form = EditPropertyFrom (request.POST or None, instance=property_object)
+	form = EditPropertyFrom(instance=property_object)
 	context['form']= form
 	context['property_object'] = property_object
-	if form.is_valid():
-		form.save()
-		return redirect('/propertydetail/%s/' %property_object.pk)
+
+	if request.method == 'POST':
+		form = EditPropertyFrom (request.POST, request.FILES)
+
+		context['form'] = form
+		print 3
+		if form.is_valid():
+			# print 4
+			form.save(commit=False)
+			property_image = PropertyImages.objects.create(property_object=property_object)
+			# print 5
+			property_image.image = form.cleaned_data['img']
+			property_image.save()
+
+			return redirect('/property_detail/%s/' %property_object.pk)
 	return render (request,'owner_edit_property.html', context)
 
-def add_image(request,pk):
+
+#must change that so we can add the image in the detail view
+def add_image(request):
 	context = {}
-	property_name = Property.objects.get(pk=pk)
-	if property_name.owner != request.user:
-		return redirect('/propertylist/')
+	context['form']= AddImageForm()
+	# property_name = Property.objects.get(pk=pk)
+	# if property_name.owner != request.user:
+	# 	return redirect('/propertylist/')
 	if request.method == 'POST':
 		form = AddImageForm(request.POST, request.FILES)
 		if form.is_valid():
+
 			property_image = form.save(commit=False)
-			property_image.property_object = property_name.user
 			property_image.save()
 			return redirect('/profile/')
 	return render(request, 'add_image.html', context)
@@ -51,7 +66,7 @@ def property_list(request):
 
 def property_detail(request, pk):
 	context = {}
-	property_object = Property.object.get(pk=pk)
+	property_object = Property.objects.get(pk=pk)
 	context['property']	= property_object
 	return render(request,'property_detail.html', context)
 

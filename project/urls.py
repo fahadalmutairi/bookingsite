@@ -9,9 +9,9 @@ urlpatterns = [
 
     url(r'^admin/', include(admin.site.urls)),
 
-    url(r'addproperty/$', 'main.views.add_property'),
-    url(r'editproperty/(?P<pk>.+)/$', 'main.views.edit_property'),
-    url(r'addimage/(?P<pk>.+)/$', 'main.views.add_image'),
+    url(r'^addproperty/$', 'main.views.add_property'),
+    url(r'^editproperty/(?P<pk>.+)/$', 'main.views.edit_property'),
+    url(r'^addimage/$', 'main.views.add_image'),
 
 
     url(r'^property_list/$', 'main.views.property_list'),
