@@ -5,7 +5,6 @@ from django.shortcuts import render
 def property_list(request):
 	context = {}
 	properties = Property.objects.all()
-	# property_image = Ima
 	context['properties'] = properties
 	return render(request, 'properties_list.html', context)
 
