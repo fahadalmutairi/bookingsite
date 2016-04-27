@@ -7,8 +7,60 @@ from django.contrib.auth.models import AbstractBaseUser, PermissionsMixin, BaseU
 
 
 # Create your models here.
+
+class Property(models.Model):
+	name = models.CharField(max_length=255)
+	description = models.TextField()
+	bedrooms = models.IntegerField(null=True,blank=True)
+	floors = models.IntegerField()
+	address = models.ForeignKey('main.Address', blank=True, null=True)
+	rate_by_day = models.IntegerField(blank=True, null=True)
+	rate_by_week = models.IntegerField(blank=True, null=True)
+	owner = models.ForeignKey('main.CustomUser')
+	longitude = models.FloatField()
+	latitude = models.FloatField()
+	
+	def __unicode__(self):
+		return "%s" %self.name
+
+class Rating(models.Model):
+	rating_by_user = models.IntegerField()
+	property_object = models.ForeignKey('main.Property')
+	user = models.ForeignKey('main.CustomUser')
+	def __unicode__(self):
+		return "%s by %s" %(self.property_object,self.user)
+
+class Schedule(models.Model):
+	date = models.DateTimeField()
+	booked = models.BooleanField(default=False)
+	property_object = models.ForeignKey('main.Property')
+	def __unicode__(self):
+		return "%s" %self.property_object
+
+class Address(models.Model):
+	country = models.CharField(max_length=255)
+	governorate = models.CharField(max_length=255)
+	area = models.CharField(max_length=255)
+	def __unicode__(self):
+		return "%s" %self.country
+
+class Amenities(models.Model):
+	name = models.CharField(max_length=255, null=True, blank=True)
+	icon = models.ImageField(upload_to='amenities_icons', null=True, blank=True)
+	def __unicode__(self):
+		return "%s" %self.name
+
+class PropertyImages(models.Model):
+	property_object = models.ForeignKey('main.Property')
+	image = models.ImageField(upload_to='property_images')
+	def __unicode__(self):
+		return "image: %s" %self.property_object
+
+
+
+
 class CustomUserManager(BaseUserManager):
-    def _create_user(self, email, password, is_staff, is_superuser, **extra_fields):
+    def _create_user(self, email, password, is_owner,is_staff, is_superuser, **extra_fields):
         now = timezone.now()
 
         if not email:
@@ -16,6 +68,7 @@ class CustomUserManager(BaseUserManager):
 
         email = self.normalize_email(email)
         user = self.model(email=email,
+        					is_owner=is_owner,
                             is_staff=is_staff, 
                             is_active=True, 
                             is_superuser=is_superuser, 
@@ -28,10 +81,10 @@ class CustomUserManager(BaseUserManager):
         return user
 
     def create_user(self, email, password=None, **extra_fields):
-        return self._create_user(email, password, False, False, **extra_fields)
+        return self._create_user(email, password,False, False, False, **extra_fields)
 
     def create_superuser(self, email, password, **extra_fields):
-        return self._create_user(email, password, True, True, **extra_fields)
+        return self._create_user(email, password,True, True, True, **extra_fields)
 
 
 
@@ -39,6 +92,7 @@ class CustomUser(AbstractBaseUser, PermissionsMixin):
     email = models.EmailField('email address', max_length=255, unique=True)
     first_name = models.CharField('first name', max_length=255, blank=True, null=True)
     last_name = models.CharField('last name', max_length=255, blank=True, null=True)
+    is_owner =  models.BooleanField('owner status', default=False)
     is_staff = models.BooleanField('staff status', default=False)
     is_active = models.BooleanField('active', default=False)
     date_joined = models.DateTimeField('date joined', auto_now_add=True)
