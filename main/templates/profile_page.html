@@ -1,0 +1,47 @@
+{% extends 'base.html' %}
+
+{% block body %}
+
+	<p>Email: {{user.email}} </p>
+	<p>First Name: {{user.first_name}} </p>
+	<p>Last Name: {{ user.last_name}} </p>
+	<p>Date Joined: {{user.date_joined}} </p>
+
+	<a href="/edit_profile/">Edit Profile</a>
+	<br>
+	<br>
+	{% if request.user.is_owner %}
+		
+		<div class="panel-body">
+		<div class="row">
+		<div class="col-lg-4">
+		<div class="table-responsive">
+		<table class="table table-bordered table-hover table-striped">
+		Properties List
+			<thead>
+				<tr>
+					<th>#</th>
+					<th>Name</th>
+					<th>Desceiption</th>
+				</tr>
+			</thead>
+			<tbody>
+				{% for property in user.property_set.all %}
+					{% if property %}
+					<tr>
+						<td>{{  property.pk }}</td>
+						<td>{{  property.name }}</td>
+						<td>{{  property.description }}</td>
+					</tr>		
+					{% endif %}
+				{% endfor %}
+			</tbody>
+		</table>
+		</div>
+		</div>
+		</div>
+		</div>
+
+	{% endif %}
+			
+{% endblock%}

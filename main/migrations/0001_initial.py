@@ -55,6 +55,7 @@ class Migration(migrations.Migration):
             name='Property',
             fields=[
                 ('id', models.AutoField(verbose_name='ID', serialize=False, auto_created=True, primary_key=True)),
+                ('name', models.CharField(max_length=255)),
                 ('description', models.TextField()),
                 ('bedrooms', models.IntegerField(null=True, blank=True)),
                 ('floors', models.IntegerField()),
@@ -70,7 +71,7 @@ class Migration(migrations.Migration):
             name='PropertyImages',
             fields=[
                 ('id', models.AutoField(verbose_name='ID', serialize=False, auto_created=True, primary_key=True)),
-                ('image', models.ImageField(upload_to=b'propery_images')),
+                ('image', models.ImageField(upload_to=b'property_images')),
                 ('property_object', models.ForeignKey(to='main.Property')),
             ],
         ),
