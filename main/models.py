@@ -31,11 +31,27 @@ class Rating(models.Model):
 		return "%s by %s" %(self.property_object,self.user)
 
 class Schedule(models.Model):
-	date = models.DateTimeField()
-	booked = models.BooleanField(default=False)
-	property_object = models.ForeignKey('main.Property')
-	def __unicode__(self):
-		return "%s" %self.property_object
+    date_start = models.DateField()
+    date_end = models.DateField()
+    owner = models.ForeignKey('main.CustomUser')
+    #user = models.ForeignKey('main.CustomUser',blank=True, null=True, related_name='user')
+    # booked = models.BooleanField(default=False)
+    property_object = models.ForeignKey('main.Property')
+    def __unicode__(self):
+        return "%s" %self.property_object
+
+class Booking(models.Model):
+    date_start = models.DateField()
+    date_end = models.DateField()
+    owner = models.ForeignKey('main.CustomUser', related_name='owner')
+    user = models.ForeignKey('main.CustomUser',blank=True, null=True, related_name='user')
+    booked = models.BooleanField(default=False)
+    property_object = models.ForeignKey('main.Property')
+    schedule = models.ForeignKey('main.Schedule')
+
+
+    def __unicode__(self):
+        return "%s" % self.property_object
 
 class Address(models.Model):
 	country = models.CharField(max_length=255)

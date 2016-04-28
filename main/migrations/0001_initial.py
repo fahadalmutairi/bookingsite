@@ -52,9 +52,20 @@ class Migration(migrations.Migration):
             ],
         ),
         migrations.CreateModel(
+            name='Booking',
+            fields=[
+                ('id', models.AutoField(verbose_name='ID', serialize=False, auto_created=True, primary_key=True)),
+                ('date_start', models.DateField()),
+                ('date_end', models.DateField()),
+                ('booked', models.BooleanField(default=False)),
+                ('owner', models.ForeignKey(related_name='owner', to=settings.AUTH_USER_MODEL)),
+            ],
+        ),
+        migrations.CreateModel(
             name='Property',
             fields=[
                 ('id', models.AutoField(verbose_name='ID', serialize=False, auto_created=True, primary_key=True)),
+                ('name', models.CharField(max_length=255)),
                 ('description', models.TextField()),
                 ('bedrooms', models.IntegerField(null=True, blank=True)),
                 ('floors', models.IntegerField()),
@@ -70,7 +81,7 @@ class Migration(migrations.Migration):
             name='PropertyImages',
             fields=[
                 ('id', models.AutoField(verbose_name='ID', serialize=False, auto_created=True, primary_key=True)),
-                ('image', models.ImageField(upload_to=b'propery_images')),
+                ('image', models.ImageField(upload_to=b'property_images')),
                 ('property_object', models.ForeignKey(to='main.Property')),
             ],
         ),
@@ -87,9 +98,25 @@ class Migration(migrations.Migration):
             name='Schedule',
             fields=[
                 ('id', models.AutoField(verbose_name='ID', serialize=False, auto_created=True, primary_key=True)),
-                ('date', models.DateTimeField()),
-                ('booked', models.BooleanField(default=False)),
+                ('date_start', models.DateField()),
+                ('date_end', models.DateField()),
+                ('owner', models.ForeignKey(to=settings.AUTH_USER_MODEL)),
                 ('property_object', models.ForeignKey(to='main.Property')),
             ],
+        ),
+        migrations.AddField(
+            model_name='booking',
+            name='property_object',
+            field=models.ForeignKey(to='main.Property'),
+        ),
+        migrations.AddField(
+            model_name='booking',
+            name='schedule',
+            field=models.ForeignKey(to='main.Schedule'),
+        ),
+        migrations.AddField(
+            model_name='booking',
+            name='user',
+            field=models.ForeignKey(related_name='user', blank=True, to=settings.AUTH_USER_MODEL, null=True),
         ),
     ]
