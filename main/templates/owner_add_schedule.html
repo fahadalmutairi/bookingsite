@@ -1,19 +1,12 @@
 {% extends 'base.html' %}
 
 {% block container %}
+{{user}}
 <div class="row">
-
-<form action='/addproperty/' method='POST' enctype='multipart/form-data'>
+<form action='/ownerschedule/' method='POST' enctype='multipart/form-data'>
 {%csrf_token%}
 {{form.as_p}}
 <input type='submit' value ='Add'>
 </form>
-
-
-</div>
-        <!-- /.row -->
-
-        <hr>
-
 
 {% endblock %}

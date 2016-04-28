@@ -1,8 +1,9 @@
 
 from django import forms
+
 from django.contrib.auth.forms import UserCreationForm , UserChangeForm 
 from main.models import CustomUser, Property, PropertyImages
-from main.models import Property, PropertyImages, Address
+from main.models import Property, PropertyImages, Address, Schedule
 
 # Create User Form
 class AreaSearchForm(forms.Form):
@@ -38,7 +39,15 @@ class EditProfileForm(forms.ModelForm):
 		model = CustomUser
 		fields = ['first_name', 'last_name']
 
+
+class OwnerAddScheduleForm(forms.ModelForm):
+	class Meta:
+		model = Schedule
+		fields = ['date_start','date_end','property_object']
+
+
 class AddPropertyForm(forms.ModelForm):
+	img = forms.ImageField()
 	class Meta:
 		model = Property
 		fields = ['name', 'description', 'bedrooms', 'floors', 'rate_by_day',

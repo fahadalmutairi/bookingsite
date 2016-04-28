@@ -28,6 +28,7 @@ urlpatterns = [
 
     url(r'^property_list/$', 'main.views.property_list'),
     url(r'^property_detail/(?P<pk>[0-9]+)/$', 'main.views.property_detail'),
+    url(r'^ownerschedule/$', 'main.views.owner_add_schedule'),
 
     url(r'^search/$','main.views.area_search')
     
