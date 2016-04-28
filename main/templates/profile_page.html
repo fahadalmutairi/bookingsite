@@ -9,13 +9,20 @@
 
 	<a href="/edit_profile/">Edit Profile</a>
 	<br>
-
+	<br>
 	{% if request.user.is_owner %}
+		
+		<div class="panel-body">
+		<div class="row">
+		<div class="col-lg-4">
+		<div class="table-responsive">
 		<table class="table table-bordered table-hover table-striped">
+		Properties List
 			<thead>
 				<tr>
 					<th>#</th>
-					<th>name</th>
+					<th>Name</th>
+					<th>Desceiption</th>
 				</tr>
 			</thead>
 			<tbody>
@@ -24,11 +31,16 @@
 					<tr>
 						<td>{{  property.pk }}</td>
 						<td>{{  property.name }}</td>
+						<td>{{  property.description }}</td>
 					</tr>		
 					{% endif %}
 				{% endfor %}
 			</tbody>
 		</table>
+		</div>
+		</div>
+		</div>
+		</div>
 
 	{% endif %}
 			
