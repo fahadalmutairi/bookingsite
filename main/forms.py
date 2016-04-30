@@ -63,4 +63,4 @@ class EditPropertyFrom(forms.ModelForm):
 class AddImageForm(forms.ModelForm):
 	class Meta:
 		model = PropertyImages
-		fields = '__all__'
+		fields = ['image']

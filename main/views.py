@@ -1,7 +1,5 @@
 
-from main.forms import CustomUserCreationForm , CustomUserLoginForm ,
-EditProfileForm ,AreaSearchForm, AddPropertyForm, EditPropertyFrom,
-AddImageForm, OwnerAddScheduleForm
+from main.forms import CustomUserCreationForm , CustomUserLoginForm , EditProfileForm ,AreaSearchForm, AddPropertyForm, EditPropertyFrom,AddImageForm, OwnerAddScheduleForm
 
 from django.utils.html import escape
 from django.template import RequestContext
@@ -145,7 +143,7 @@ def edit_property(request, pk):
 	context = {}
 	property_object = Property.objects.get(pk=pk)
 	if property_object.owner != request.user:
-		return redirect('/propertylist/')
+		return redirect('/property_list/')
 	form = EditPropertyFrom(instance=property_object)
 	context['form']= form
 	context['property_object'] = property_object
@@ -165,19 +163,20 @@ def edit_property(request, pk):
 
 
 #must change that so we can add the image in the detail view
-def add_image(request):
+def add_image(request,pk):
 	context = {}
 	context['form']= AddImageForm()
-	# property_name = Property.objects.get(pk=pk)
+	property_name = Property.objects.get(pk=pk)
+	context['property'] = property_name
 	# if property_name.owner != request.user:
 	# 	return redirect('/propertylist/')
 	if request.method == 'POST':
 		form = AddImageForm(request.POST, request.FILES)
 		if form.is_valid():
-
 			property_image = form.save(commit=False)
+			property_image.property_object = property_name
 			property_image.save()
-			return redirect('/profile/')
+			return redirect('/property_detail/%s/' %property_name.pk)
 	return render(request, 'add_image.html', context)
 
 def property_list(request):

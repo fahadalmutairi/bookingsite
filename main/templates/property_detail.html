@@ -8,7 +8,9 @@
                 <h1 class="page-header">{{property.name}}
                     <small>{{property.type}}
                     <br>
-                    <a href='/ownerschedule/{{property.pk}}/'> add schedule</a>
+                    <a href='/ownerschedule/{{property.pk}}/'> add schedule</a><br>
+                    <a href='/addimage/{{property.pk}}/'> add image</a>
+
                     </small>
                 </h1>
             </div>
@@ -29,6 +31,7 @@
                 <h3>Property Description</h3>
 
                 <p>{{ property.description }}</p>
+                <p> <a href='/editproperty/{{property.pk}}/'> edit property</a></p>
                 <h3>Amenties</h3>
                 {% for amenities in property.amenities_set.all %}
                 <ul>

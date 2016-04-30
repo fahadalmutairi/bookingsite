@@ -1,4 +1,6 @@
 {% load crispy_forms_tags %}
+{% load staticfiles %}
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -42,20 +44,33 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                <a class="navbar-brand" href="#">Start Bootstrap</a>
+                <a class="navbar-brand" href="/property_list/">Home</a>
             </div>
             <!-- Collect the nav links, forms, and other content for toggling -->
             <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                 <ul class="nav navbar-nav">
                     <li>
-                        <a href="#">من نحن</a>
+                        <a href="/profile/">profile</a>
                     </li>
                     <li>
-                        <a href="#">خدماتنا</a>
+                        <a href="/addproperty/">add property</a>
                     </li>
                     <li>
-                        <a href="#">اتصل بنا</a>
+                       <a href="/search/">Search</a>
                     </li>
+                    <li>
+                    {%if request.user.is_authenticated %}
+        
+                    <a href="/profile/">{{user}}</a>
+                    {%endif%}
+                    </li>
+                    <li>
+                         {%if request.user.is_authenticated %}
+                        <a href="/logout/">Logout</a>
+                         {%else%}
+                        <a href="/signin/">signin</a>
+                             {%endif%}
+                  </li>
                 </ul>
             </div>
             <!-- /.navbar-collapse -->
