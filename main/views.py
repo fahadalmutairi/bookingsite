@@ -4,16 +4,20 @@ from main.forms import AddPropertyForm, EditPropertyFrom, AddImageForm, OwnerAdd
 # Create your views here.
 def user_book(request):
 	context = {}
+	
 
-def owner_add_schedule(request):
+def owner_add_schedule(request,pk):
 	context = {}
 	context['form'] = OwnerAddScheduleForm()
+	prop = Property.objects.get(pk=pk)
+	context['prop'] = prop
 
 	if request.method == 'POST':
 		form = OwnerAddScheduleForm(request.POST)
 		if form.is_valid():
 			schedule = form.save(commit=False)
 			schedule.owner = request.user
+			schedule.property_object = prop
 			schedule.save()
 			return redirect('/property_list/')
 	return render(request,'owner_add_schedule.html', context)

@@ -4,7 +4,7 @@ from main.models import Property, PropertyImages, Schedule
 class OwnerAddScheduleForm(forms.ModelForm):
 	class Meta:
 		model = Schedule
-		fields = ['date_start','date_end','property_object']
+		fields = ['date_start','date_end']
 
 class AddPropertyForm(forms.ModelForm):
 	img = forms.ImageField()
