@@ -1,7 +1,7 @@
 from django.db import models
-from django.utils import timezone  
-from django.utils.http import urlquote  
-from django.core.mail import send_mail  
+from django.utils import timezone
+from django.utils.http import urlquote
+from django.core.mail import send_mail
 from django.contrib.auth.models import AbstractBaseUser, PermissionsMixin, BaseUserManager
 
 
@@ -17,11 +17,26 @@ class Property(models.Model):
 	rate_by_day = models.IntegerField(blank=True, null=True)
 	rate_by_week = models.IntegerField(blank=True, null=True)
 	owner = models.ForeignKey('main.CustomUser')
+	amenities = models.ManyToManyField('main.Amenities')
 	longitude = models.FloatField()
 	latitude = models.FloatField()
-	
+	PROPERTY_TYPE_CHOICES =(
+		('Apartment', 'Apartment'),
+		('Chalet', 'Chalet'), ('Farm', 'Farm'),
+		)
+	property_type_choices = models.CharField(choices=PROPERTY_TYPE_CHOICES, default='Farm', max_length=255)
+
 	def __unicode__(self):
 		return "%s" %self.name
+
+
+# ----- depreciated model please ignore
+# class Type(models.Model):
+#     propertytype = models.CharField(max_length=10)
+#     property_object = models.ForeignKey('main.Property')
+
+#     def __unicode__(self):
+#         return "%s" % self.property_object
 
 class Rating(models.Model):
 	rating_by_user = models.IntegerField()
@@ -58,7 +73,7 @@ class Address(models.Model):
 	governorate = models.CharField(max_length=255)
 	area = models.CharField(max_length=255)
 	def __unicode__(self):
-		return "%s" %self.country
+		return "%s" %self.area
 
 class Amenities(models.Model):
 	name = models.CharField(max_length=255, null=True, blank=True)
@@ -85,10 +100,10 @@ class CustomUserManager(BaseUserManager):
         email = self.normalize_email(email)
         user = self.model(email=email,
         					is_owner=is_owner,
-                            is_staff=is_staff, 
-                            is_active=True, 
-                            is_superuser=is_superuser, 
-                            last_login=now, 
+                            is_staff=is_staff,
+                            is_active=True,
+                            is_superuser=is_superuser,
+                            last_login=now,
                             date_joined=now,
                             **extra_fields
                             )
@@ -135,4 +150,4 @@ class CustomUser(AbstractBaseUser, PermissionsMixin):
         return self.first_name
 
     def email_user(self, subject, message, from_email=None):
-        send_mail(subject,message,from_email, [self.email])     
+        send_mail(subject,message,from_email, [self.email])

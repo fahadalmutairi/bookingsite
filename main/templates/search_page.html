@@ -1,0 +1,15 @@
+{%extends 'base.html'%}
+
+{% block container %}
+<form method="POST" action="/search/">
+  {% csrf_token %}
+  {{ form.as_table}}
+<input type="submit", value="Search" />
+</form>
+{{ valid }}
+{{property_list.name}}
+{% for area in property_list %}
+
+<a href="/property_detail/{{area.pk}}/">{{area.name}}</a><br>
+{%endfor%}
+{%endblock%}
