@@ -89,7 +89,7 @@ def create_booking(request, pk):
 	booking.save()
 
 	if booking:
-		return HttpResponse('pass')
+		return redirect('/profile/')
 
 
 	return HttpResponse('fail')

@@ -10,6 +10,41 @@
 	<a href="/edit_profile/">Edit Profile</a>
 	<br>
 	<br>
+
+			<div class="panel-body">
+		<div class="row">
+		<div class="col-lg-4">
+		<div class="table-responsive">
+		<table class="table table-bordered table-hover table-striped">
+		Booking List
+			<thead>
+				<tr>
+					<th>#</th>
+					<th>Property</th>
+					<th>Start date</th>
+					<th>End date</th>
+				</tr>
+			</thead>
+			<tbody>
+				{% for booking in user.user.all %}
+					{% if booking %}
+					<tr>
+						<td>{{  booking.pk }}</td>
+						<td>{{booking.property_object}}</td>
+						<td>{{booking.date_start}}</td>
+						<td>{{  booking.date_end }}</td>
+						
+					</tr>		
+					{% endif %}
+				{% endfor %}
+			</tbody>
+		</table>
+		</div>
+		</div>
+		</div>
+		</div>
+
+
 	{% if request.user.is_owner %}
 		
 		<div class="panel-body">
