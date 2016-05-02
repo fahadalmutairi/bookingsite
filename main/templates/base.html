@@ -19,7 +19,7 @@
     <link href="{% static 'css/bootstrap.min.css' %}" rel="stylesheet">
 
     <!-- Custom CSS -->
-    <link href="{% static 'css/portfolio-item.css'%}" rel="stylesheet">
+    <link href="{% static 'css/portfolio-item.css' %}" rel="stylesheet">
 
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -33,74 +33,90 @@
 <body>
 
 
-    <!-- Navigation -->
-    <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
-        <div class="container">
-            <!-- Brand and toggle get grouped for better mobile display -->
-            <div class="navbar-header">
-                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
-                    <span class="sr-only">Toggle navigation</span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                </button>
-                <a class="navbar-brand" href="/property_list/">Home</a>
-            </div>
-            <!-- Collect the nav links, forms, and other content for toggling -->
-            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-                <ul class="nav navbar-nav">
-                    <li>
-                        <a href="/profile/">profile</a>
-                    </li>
-                    <li>
-                        <a href="/addproperty/">add property</a>
-                    </li>
-                    <li>
-                       <a href="/search/">Search</a>
-                    </li>
-                    <li>
-                    {%if request.user.is_authenticated %}
-        
-                    <a href="/profile/">{{user}}</a>
-                    {%endif%}
-                    </li>
-                    <li>
-                         {%if request.user.is_authenticated %}
-                        <a href="/logout/">Logout</a>
-                         {%else%}
-                        <a href="/signin/">signin</a>
-                             {%endif%}
-                  </li>
-                </ul>
-            </div>
-            <!-- /.navbar-collapse -->
-        </div>
-        <!-- /.container -->
-    </nav>
+<!-- Navigation -->
+<nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
     <div class="container">
-        {% block container %}
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse"
+                    data-target="#bs-example-navbar-collapse-1">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="/property_list/">Home</a>
+        </div>
+        <!-- Collect the nav links, forms, and other content for toggling -->
+        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+            <ul class="nav navbar-nav">
+                <li>
+                    <a href="/profile/">profile</a>
+                </li>
+                <li>
+                    <a href="/addproperty/">add property</a>
+                </li>
+                <li>
+                    <a href="/search/">Search</a>
+                </li>
+                <li>
+                    {% if request.user.is_authenticated %}
 
-        {% endblock %}
+                        <a href="/profile/">{{ user }}</a>
+                    {% endif %}
+                </li>
+                <li>
+                    {% if request.user.is_authenticated %}
+                        <a href="/logout/">Logout</a>
+                    {% else %}
+                        <a href="/signin/">signin</a>
+                    {% endif %}
+                </li>
+            </ul>
+        </div>
+        <!-- /.navbar-collapse -->
+    </div>
+    <!-- /.container -->
+</nav>
+<div class="container">
+    <div class="row">
+        <div class="col-md-3">
+            <p class="lead">Shop Name</p>
+            <div class="list-group">
+                <a href="/chalets" class="list-group-item">Chalets</a>
+                <a href="/farms" class="list-group-item">Farms</a>
+                <a href="#" class="list-group-item">Apartments</a>
+            </div>
+        </div>
+        <div clas="col-md-9">
+            {% block container %}
+
+
+            {% endblock %}
+        </div>
     </div>
 
-        <!-- Footer -->
-        <footer>
-            <div class="row">
-                <div class="col-lg-12">
-                    <p>Copyright &copy; Your Website 2017</p>
-                </div>
-            </div>
-            <!-- /.row -->
-        </footer>
 
-    {# </div> #}
-    <!-- /.container -->
+</div>
 
-    <!-- jQuery -->
-    <script src="{% static 'js/jquery.js' %}"></script>
+<!-- Footer -->
+<footer>
+    <div class="row">
+        <div class="col-lg-12">
+            <p>Copyright &copy; Your Website 2017</p>
+        </div>
+    </div>
+    <!-- /.row -->
+</footer>
 
-    <!-- Bootstrap Core JavaScript -->
-    <script src="{% static 'js/bootstrap.min.js' %}"></script>
+{# </div> #}
+<!-- /.container -->
+
+<!-- jQuery -->
+<script src="{% static 'js/jquery.js' %}"></script>
+
+<!-- Bootstrap Core JavaScript -->
+<script src="{% static 'js/bootstrap.min.js' %}"></script>
 
 </body>
 

@@ -1,11 +1,14 @@
 {% extends 'base.html' %}
 
 {% block container %}
-{{property}}
-<form action='/addimage/{{property.pk}}/' method='POST' enctype='multipart/form-data'>
-{%csrf_token%}
-{{form.as_p}}
-<input type='submit' value ='Add'>
-</form>
+    <div class="row">
+        {{ property }}
+        <form action='/addimage/{{ property.pk }}/' method='POST' enctype='multipart/form-data'>
+            {% csrf_token %}
+            {{ form.as_p }}
+            <input type='submit' value='Add'>
+        </form>
+    </div>
+
 
 {% endblock %}

@@ -29,6 +29,10 @@ urlpatterns = [
     url(r'^property_list/$', 'main.views.property_list'),
     url(r'^property_detail/(?P<pk>[0-9]+)/$', 'main.views.property_detail'),
 
+    url(r'chalets/$', 'main.views.chalets'),
+    url(r'farms/$', 'main.views.farms'),
+    url(r'apartments', 'main.views.apartments'),
+
     url(r'^ownerschedule/(?P<pk>[0-9]+)/$', 'main.views.owner_add_schedule'),
 
 
