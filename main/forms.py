@@ -2,8 +2,12 @@
 from django import forms
 
 from django.contrib.auth.forms import UserCreationForm , UserChangeForm 
-from main.models import CustomUser, Property, PropertyImages
+from main.models import CustomUser, Property, PropertyImages, Booking
 from main.models import Property, PropertyImages, Address, Schedule
+
+class FilterTime(forms.Form):
+	start = forms.DateField()
+	end = forms.DateField()
 
 # Create User Form
 class AreaSearchForm(forms.Form):
@@ -45,6 +49,11 @@ class OwnerAddScheduleForm(forms.ModelForm):
 		model = Schedule
 		fields = ['date_start','date_end']
 
+class UserBookForm(forms.ModelForm):
+	class Meta:
+		model = Booking
+		fields = '__all__'
+
 
 class AddPropertyForm(forms.ModelForm):
 	img = forms.ImageField()
@@ -64,3 +73,8 @@ class AddImageForm(forms.ModelForm):
 	class Meta:
 		model = PropertyImages
 		fields = ['image']
+
+class BookingForm(forms.ModelForm):
+	class Meta:
+		model = Booking
+		fields = '__all__'

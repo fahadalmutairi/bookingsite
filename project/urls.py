@@ -36,7 +36,9 @@ urlpatterns = [
     url(r'^ownerschedule/(?P<pk>[0-9]+)/$', 'main.views.owner_add_schedule'),
 
 
-    url(r'^search/$','main.views.area_search')
-    
+    url(r'^search/$','main.views.area_search'),
+    url(r'^filter/$', 'main.views.filter'),
+    url(r'^create_booking/(?P<pk>\d+)/$', 'main.views.create_booking'),
+
 ] + static(settings.MEDIA_URL,document_root=settings.MEDIA_ROOT)
 
