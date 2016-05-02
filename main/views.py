@@ -9,13 +9,13 @@ from django.shortcuts import render, redirect, render_to_response,get_object_or_
 
 from django.contrib.auth import authenticate, login , logout
 from django.contrib.auth.decorators import login_required
-from django.http import HttpResponse , Http404, HttpResponseRedirect 
+from django.http import HttpResponse , Http404, HttpResponseRedirect
 from main.models import Property, PropertyImages, Schedule, CustomUser, Property, PropertyImages
 
 # Create your views here.
 def user_book(request):
 	context = {}
-	
+
 
 def owner_add_schedule(request,pk):
 	context = {}
@@ -36,7 +36,7 @@ def owner_add_schedule(request,pk):
 def edit_profile(request):
 	context = {}
 	try:
-		user =CustomUser.objects.get(pk=request.user.pk) 
+		user =CustomUser.objects.get(pk=request.user.pk)
 	except Exception, e :
 		raise Http404('404')
 
@@ -59,7 +59,7 @@ def profile_page(request):
 	if request.user.is_owner :
 		properties = request.user.property_set.all()
 		context['property']= properties
-	else:			
+	else:
 		pass
 	context['user']= CustomUser.objects.get(pk=request.user.pk)
 	return render(request,'profile_page.html', context)
@@ -70,7 +70,7 @@ def sign_up(request):
 	context['form'] = CustomUserCreationForm()
 
 	if request.method =='POST':
-		
+
 		form=CustomUserCreationForm(request.POST)
 		context['form'] = form
 
@@ -83,9 +83,9 @@ def sign_up(request):
 			try:
 				login(request, auth_user)
 			except Exception, e:
-				print e 
+				print e
 				return HttpResponse('invalid user, try again <a href="/signup/">here</a>')
-			
+
 	return render (request,'signup.html',context)
 
 
@@ -100,7 +100,7 @@ def login_view(request):
 		form = CustomUserLoginForm(request.POST)
 		context['form'] = form
 
-		if form.is_valid(): 
+		if form.is_valid():
 			email = form.cleaned_data.get('email',None)
 			password= form.cleaned_data.get('password',None)
 			auth_user = authenticate(username=email, password=password)
@@ -111,7 +111,7 @@ def login_view(request):
 			except Exception, e:
 				message= """
 				username or password incorrect, try again
-				<a href='/signin/'> login</a>
+				<a href='/accounts/login/'> login</a>
 				"""
 				return HttpResponse(message)
 	return render (request, 'signin.html', context)
@@ -135,7 +135,7 @@ def add_property(request):
 			property_image = PropertyImages.objects.create(property_object=property_object)
 			property_image.image = form.cleaned_data['img']
 			property_image.save()
-			
+
 			return redirect('/profile/')
 	return render(request, 'add_property.html', context)
 

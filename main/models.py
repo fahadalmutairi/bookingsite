@@ -20,6 +20,7 @@ class Property(models.Model):
 	amenities = models.ManyToManyField('main.Amenities')
 	longitude = models.FloatField()
 	latitude = models.FloatField()
+	booking_item = models.ForeignKey('booking.BookingItem')
 	PROPERTY_TYPE_CHOICES =(
 		('Apartment', 'Apartment'),
 		('Chalet', 'Chalet'), ('Farm', 'Farm'),
@@ -55,18 +56,18 @@ class Schedule(models.Model):
     def __unicode__(self):
         return "%s" %self.property_object
 
-class Booking(models.Model):
-    date_start = models.DateField()
-    date_end = models.DateField()
-    owner = models.ForeignKey('main.CustomUser', related_name='owner')
-    user = models.ForeignKey('main.CustomUser',blank=True, null=True, related_name='user')
-    booked = models.BooleanField(default=False)
-    property_object = models.ForeignKey('main.Property')
-    schedule = models.ForeignKey('main.Schedule')
-
-
-    def __unicode__(self):
-        return "%s" % self.property_object
+# class Booking(models.Model):
+#     date_start = models.DateField()
+#     date_end = models.DateField()
+#     owner = models.ForeignKey('main.CustomUser', related_name='owner')
+#     user = models.ForeignKey('main.CustomUser',blank=True, null=True, related_name='user')
+#     booked = models.BooleanField(default=False)
+#     property_object = models.ForeignKey('main.Property')
+#     schedule = models.ForeignKey('main.Schedule')
+#
+#
+#     def __unicode__(self):
+#         return "%s" % self.property_object
 
 class Address(models.Model):
 	country = models.CharField(max_length=255)

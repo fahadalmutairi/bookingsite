@@ -4,15 +4,15 @@
 
 	{% if request.user.is_authenticated %}
 	 Welcome : {{request.user}} <br>
-	 <a href="/logout/">logout</a> 
+	 <a href="/logout/">logout</a>
 	{% endif %}
 
 	{% if not request.user.is_authenticated %}
-	<form action='/signin/' method='POST'>
+	<form action='/accounts/login/' method='POST'>
 	 	{% csrf_token %}
 	 	{{form.as_p}}
 	 	<input type='submit' value='Sign In'/>
 	</form>
-	{% endif %} 
-			
+	{% endif %}
+
 {% endblock%}
