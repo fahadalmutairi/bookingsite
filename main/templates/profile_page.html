@@ -1,13 +1,13 @@
 {% extends 'base.html' %}
 
-{% block body %}
+{% block container %}
 
 	<p>Email: {{user.email}} </p>
 	<p>First Name: {{user.first_name}} </p>
 	<p>Last Name: {{ user.last_name}} </p>
 	<p>Date Joined: {{user.date_joined}} </p>
 
-	<a href="/edit_profile/">Edit Profile</a>
+	<a href="/edit_profile/">Edit Your Baisc Information </a>
 	<br>
 	<br>
 	{% if request.user.is_owner %}
@@ -42,6 +42,13 @@
 		</div>
 		</div>
 
+	{% else %}
+
+
+		<p> <a href="/become_owner/"> Become Property Owner !</a> </p>
+
 	{% endif %}
+
+
 			
 {% endblock%}

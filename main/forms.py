@@ -1,10 +1,13 @@
-
 from django import forms
 from django.contrib.auth.forms import UserCreationForm , UserChangeForm 
 from main.models import CustomUser, Property, PropertyImages
-from main.models import Property, PropertyImages, Address
+from main.models import Property, PropertyImages, Address, Schedule_2
+from django.contrib.admin.widgets import AdminDateWidget
+import datetime
+from django.forms.extras.widgets import SelectDateWidget
 
 # Create User Form
+
 class AreaSearchForm(forms.Form):
     area = forms.CharField(required=True)
 
@@ -12,7 +15,6 @@ class CustomUserCreationForm(UserCreationForm):
 	def __init__(self, *arg, **kwargs):
 		super(CustomUserCreationForm, self).__init__(*arg, **kwargs)
 		#del self.fields['username']
-
 	class Meta:
 		model = CustomUser
 		fields = ("email",)
@@ -55,3 +57,9 @@ class AddImageForm(forms.ModelForm):
 	class Meta:
 		model = PropertyImages
 		fields = '__all__'
+
+class CheckForm(forms.Form):
+	From_date = forms.DateField(widget=SelectDateWidget)
+	To_date = forms.DateField(widget=SelectDateWidget)
+
+

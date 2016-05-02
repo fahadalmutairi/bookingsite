@@ -1,5 +1,5 @@
 from django.contrib import admin
-from main.models import Property, Rating, Schedule, Address, Amenities, PropertyImages, CustomUser
+from main.models import Property, Rating, Schedule, Address, Amenities, PropertyImages, CustomUser, Schedule_2
 # Register your models here.
 
 admin.site.register(Property)
@@ -10,3 +10,4 @@ admin.site.register(Amenities)
 admin.site.register(PropertyImages)
 admin.site.register(CustomUser)
 
+admin.site.register(Schedule_2)

@@ -1,0 +1,49 @@
+{% extends 'base.html' %}
+
+{% block container %}
+
+<form action='/check/' method='POST'>
+	{% csrf_token %}
+	 {{ form.as_p}}
+
+	<input type='submit' value='Search'>
+	</form>
+
+
+	
+		<div class="panel-body">
+		<div class="row">
+		<div class="col-lg-4">
+		<div class="table-responsive">
+		<table class="table table-bordered table-hover table-striped">
+		Avaliable Properties 
+			<thead>
+				<tr>
+					<th>#</th>
+					<th>Name</th>
+					<th>Desceiption</th>
+				</tr>
+			</thead>
+			<tbody>
+				{% for unbooked in unbooked.property_object_set.all %}
+					{% if unbooked %}
+					<tr>
+						<td>{{  unbooked.pk }}</td>
+						<td>{{  unbooked.rdate}}</td>
+						<td>{{  unbooked.property_object }}</td>
+					</tr>		
+					{% endif %}
+				{% endfor %}
+			</tbody>
+		</table>
+		</div>
+		</div>
+		</div>
+		</div>
+
+
+
+
+
+			
+{% endblock%}

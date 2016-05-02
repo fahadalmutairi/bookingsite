@@ -1,16 +1,23 @@
 
-from main.forms import CustomUserCreationForm , CustomUserLoginForm ,  EditProfileForm ,AreaSearchForm, AddPropertyForm, EditPropertyFrom, AddImageForm
+from main.forms import CustomUserCreationForm , CustomUserLoginForm ,  EditProfileForm ,AreaSearchForm, AddPropertyForm, EditPropertyFrom, AddImageForm , CheckForm
 from django.utils.html import escape
 from django.template import RequestContext
 from django.core.urlresolvers import reverse
 from django.views.decorators.csrf import csrf_exempt
 from django.shortcuts import render, redirect, render_to_response,get_object_or_404
-from main.models import CustomUser, Property, PropertyImages
+from main.models import CustomUser, Property, PropertyImages , Schedule_2
 from django.contrib.auth import authenticate, login , logout
 from django.contrib.auth.decorators import login_required
 from django.http import HttpResponse , Http404, HttpResponseRedirect 
-
+from datetime import datetime
 # Create your views here.
+
+
+def become_owner(request):
+	request.user.is_owner = True 
+	request.user.save()
+	return render(request, 'become_owner.html')
+
 
 def edit_profile(request):
 	context = {}
@@ -75,10 +82,8 @@ def login_view(request):
 	context['form'] =CustomUserLoginForm()
 
 	if request.method == 'POST':
-
 		form = CustomUserLoginForm(request.POST)
 		context['form'] = form
-
 		if form.is_valid(): 
 			email = form.cleaned_data.get('email',None)
 			password= form.cleaned_data.get('password',None)
@@ -186,3 +191,22 @@ def area_search(request):
 		form = AreaSearchForm()
 		context['form']	= form
 		return render_to_response('search_page.html', context, context_instance=request_context)
+
+
+
+
+def check(request):
+	context = {}
+	context['form'] = CheckForm()
+	#context['unreserved'] = Property.objects.filter(From_date)
+	
+	context['all'] = Property.objects.all()
+
+	booked= Schedule_2.objects.filter(Rdate =datetime.now())
+	context['unbooked']= booked
+
+	#context['booked'] = booked.property_set.all()
+
+   # context['unbooked']= context['all'].exclude(Schedule_2.property_object.filter(Rdate = datetime.date.today()))
+	return render(request, 'check.html', context)
+

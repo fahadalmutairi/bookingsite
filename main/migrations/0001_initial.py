@@ -63,7 +63,9 @@ class Migration(migrations.Migration):
                 ('rate_by_week', models.IntegerField(null=True, blank=True)),
                 ('longitude', models.FloatField()),
                 ('latitude', models.FloatField()),
+                ('property_type_choices', models.CharField(default=b'Farm', max_length=255, choices=[(b'Apartment', b'Apartment'), (b'Chalet', b'Chalet'), (b'Farm', b'Farm')])),
                 ('address', models.ForeignKey(blank=True, to='main.Address', null=True)),
+                ('amenities', models.ManyToManyField(to='main.Amenities')),
                 ('owner', models.ForeignKey(to=settings.AUTH_USER_MODEL)),
             ],
         ),
@@ -91,6 +93,16 @@ class Migration(migrations.Migration):
                 ('date', models.DateTimeField()),
                 ('booked', models.BooleanField(default=False)),
                 ('property_object', models.ForeignKey(to='main.Property')),
+            ],
+        ),
+        migrations.CreateModel(
+            name='Schedule_2',
+            fields=[
+                ('id', models.AutoField(verbose_name='ID', serialize=False, auto_created=True, primary_key=True)),
+                ('Rdate', models.DateField()),
+                ('Unavaliable', models.BooleanField(default=False)),
+                ('booked', models.BooleanField(default=False)),
+                ('property_o', models.ForeignKey(to='main.Property')),
             ],
         ),
     ]

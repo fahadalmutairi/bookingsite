@@ -22,13 +22,22 @@ class Property(models.Model):
 	latitude = models.FloatField()
 	PROPERTY_TYPE_CHOICES =(
 		('Apartment', 'Apartment'),
-		('Chalet', 'Chalet'), ('Farm', 'Farm'),
+		('Chalet', 'Chalet'), 
+        ('Farm', 'Farm'),
 		)
 	property_type_choices = models.CharField(choices=PROPERTY_TYPE_CHOICES, default='Farm', max_length=255)
 
 	def __unicode__(self):
 		return "%s" %self.name
 
+
+class Schedule_2(models.Model):
+    Rdate = models.DateField()
+    Unavaliable = models.BooleanField(default=False)
+    booked = models.BooleanField(default=False)
+    property_o = models.ForeignKey('main.Property')
+    def __unicode__(self):
+        return "%s ,  %s" %(self.property_object , self.Rdate)
 
 # ----- depreciated model please ignore
 # class Type(models.Model):
@@ -52,6 +61,7 @@ class Schedule(models.Model):
 	def __unicode__(self):
 		return "%s" %self.property_object
 
+
 class Address(models.Model):
 	country = models.CharField(max_length=255)
 	governorate = models.CharField(max_length=255)
@@ -72,15 +82,11 @@ class PropertyImages(models.Model):
 		return "image: %s" %self.property_object
 
 
-
-
 class CustomUserManager(BaseUserManager):
     def _create_user(self, email, password, is_owner,is_staff, is_superuser, **extra_fields):
         now = timezone.now()
-
         if not email:
             raise ValueError('Email must be set')
-
         email = self.normalize_email(email)
         user = self.model(email=email,
         					is_owner=is_owner,
@@ -100,7 +106,6 @@ class CustomUserManager(BaseUserManager):
 
     def create_superuser(self, email, password, **extra_fields):
         return self._create_user(email, password,True, True, True, **extra_fields)
-
 
 
 class CustomUser(AbstractBaseUser, PermissionsMixin):
@@ -135,3 +140,7 @@ class CustomUser(AbstractBaseUser, PermissionsMixin):
 
     def email_user(self, subject, message, from_email=None):
         send_mail(subject,message,from_email, [self.email])
+
+
+
+

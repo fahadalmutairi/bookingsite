@@ -11,7 +11,6 @@ urlpatterns = [
     # url(r'^blog/', include('blog.urls')),
     url(r'^admin/', include(admin.site.urls)),
 
-
     url(r'^addproperty/$', 'main.views.add_property'),
     url(r'^editproperty/(?P<pk>.+)/$', 'main.views.edit_property'),
     url(r'^addimage/$', 'main.views.add_image'),
@@ -21,6 +20,9 @@ urlpatterns = [
 	url(r'^signin/$', 'main.views.login_view'),
 	url(r'^profile/$', 'main.views.profile_page'),
   	url(r'^edit_profile/$', 'main.views.edit_profile'),
+    url(r'^become_owner/$', 'main.views.become_owner'),
+
+    url(r'^check/$', 'main.views.check'),
 
     url(r'addproperty/$', 'main.views.add_property'),
     url(r'editproperty/(?P<pk>.+)/$', 'main.views.edit_property'),
