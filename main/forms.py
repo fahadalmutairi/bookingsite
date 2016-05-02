@@ -1,9 +1,6 @@
-
 from django import forms
-
 from django.contrib.auth.forms import UserCreationForm , UserChangeForm 
-from main.models import CustomUser, Property, PropertyImages, Booking
-from main.models import Property, PropertyImages, Address, Schedule
+from main.models import Property, PropertyImages, Address, Schedule, Booking,CustomUser, Booking
 import datetime
 from django.forms.extras.widgets import SelectDateWidget
 
@@ -19,7 +16,6 @@ class CustomUserCreationForm(UserCreationForm):
 	def __init__(self, *arg, **kwargs):
 		super(CustomUserCreationForm, self).__init__(*arg, **kwargs)
 		#del self.fields['username']
-
 	class Meta:
 		model = CustomUser
 		fields = ("email",)
@@ -74,9 +70,16 @@ class EditPropertyFrom(forms.ModelForm):
 class AddImageForm(forms.ModelForm):
 	class Meta:
 		model = PropertyImages
-		fields = ['image']
+		fields = '__all__'
+
+class CheckForm(forms.Form):
+	From_date = forms.DateField(widget=SelectDateWidget)
+	To_date = forms.DateField(widget=SelectDateWidget)
+
+
 
 class BookingForm(forms.ModelForm):
 	class Meta:
 		model = Booking
 		fields = '__all__'
+

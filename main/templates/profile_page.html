@@ -7,7 +7,7 @@
 	<p>Last Name: {{ user.last_name}} </p>
 	<p>Date Joined: {{user.date_joined}} </p>
 
-	<a href="/edit_profile/">Edit Profile</a>
+	<a href="/edit_profile/">Edit Your Baisc Information </a>
 	<br>
 	<br>
 
@@ -81,6 +81,13 @@
 		</div>
 		</div>
 
+	{% else %}
+
+
+		<p> <a href="/become_owner/"> Become Property Owner !</a> </p>
+
 	{% endif %}
+
+
 			
 {% endblock%}

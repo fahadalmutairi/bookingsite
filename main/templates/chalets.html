@@ -2,10 +2,29 @@
 
 {% block container %}
 
+<div class="col-sm-4 col-lg-4 col-md-4">
+    {% for chalet in chalets %}
+        <div class="thumbnail">
+            <img src="{{ MEDIA }}{{ chalet.propertyimages_set.all.0 }}" alt="">
+            <div class="caption">
+                <h4 class="pull-right">{{ chalet.price }}</h4>
+                <h4><a href="/property_detail/{{ chalet.pk }}">{{ chalet.name }}</a>
+                </h4>
+                <p>{{ chalet.description }}</p>
+            </div>
+            <div class="ratings">
+                <p class="pull-right">15 reviews</p>
+                <p>
+                    <span class="glyphicon glyphicon-star"></span>
+                    <span class="glyphicon glyphicon-star"></span>
+                    <span class="glyphicon glyphicon-star"></span>
+                    <span class="glyphicon glyphicon-star"></span>
+                    <span class="glyphicon glyphicon-star"></span>
+                </p>
+            </div>
+        </div>
+        </div>
+    {% endfor %}
 
-{%for chalet in chalets%}
-{{chalet.name}}
-{%endfor%}
-
-
-{%endblock%}
+</div>
+{% endblock %}
