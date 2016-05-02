@@ -6,7 +6,12 @@
         <div class="row">
             <div class="col-lg-12">
                 <h1 class="page-header">{{property.name}}
-                    <small>{{property.type}}</small>
+                    <small>{{property.type}}
+                    <br>
+                    <a href='/ownerschedule/{{property.pk}}/'> add schedule</a><br>
+                    <a href='/addimage/{{property.pk}}/'> add image</a>
+
+                    </small>
                 </h1>
             </div>
         </div>
@@ -16,7 +21,8 @@
         <div class="row">
 
             <div class="col-md-8">
-                <img class="img-responsive" src="http://placehold.it/750x500" alt="">
+                <img class="img-responsive" src="{{property.propertyimages_set.all.0.image.url}}" alt="">
+                
             </div>
 
             <div class="col-md-4">
@@ -26,6 +32,7 @@
                 <h3>Property Description</h3>
 
                 <p>{{ property.description }}</p>
+                <p> <a href='/editproperty/{{property.pk}}/'> edit property</a></p>
                 <h3>Amenties</h3>
                 {% for amenities in property.amenities_set.all %}
                 <ul>

@@ -23,6 +23,8 @@
 					<th>#</th>
 					<th>Name</th>
 					<th>Desceiption</th>
+					<th>Add Image</th>
+					<th>Add Schedule</th>
 				</tr>
 			</thead>
 			<tbody>
@@ -30,8 +32,10 @@
 					{% if property %}
 					<tr>
 						<td>{{  property.pk }}</td>
-						<td>{{  property.name }}</td>
+						<td><a href= '/property_detail/{{property.pk}}/'>{{  property.name }}</a></td>
 						<td>{{  property.description }}</td>
+						<td><a href='/addimage/{{property.pk}}/'> + </a></td>
+						
 					</tr>		
 					{% endif %}
 				{% endfor %}

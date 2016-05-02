@@ -1,13 +1,14 @@
 from django import forms
-from django.contrib.auth.forms import UserCreationForm , UserChangeForm 
-from main.models import CustomUser, Property, PropertyImages
-from main.models import Property, PropertyImages, Address, Schedule_2
-from django.contrib.admin.widgets import AdminDateWidget
 import datetime
+from django.contrib.auth.forms import UserCreationForm , UserChangeForm 
+from main.models import CustomUser, Property, PropertyImages , Address, Schedule_2 , Booking , Schedule
 from django.forms.extras.widgets import SelectDateWidget
 
-# Create User Form
+class FilterTime(forms.Form):
+	start = forms.DateField()
+	end = forms.DateField()
 
+# Create User Form
 class AreaSearchForm(forms.Form):
     area = forms.CharField(required=True)
 
@@ -40,7 +41,20 @@ class EditProfileForm(forms.ModelForm):
 		model = CustomUser
 		fields = ['first_name', 'last_name']
 
+
+class OwnerAddScheduleForm(forms.ModelForm):
+	class Meta:
+		model = Schedule
+		fields = ['date_start','date_end']
+
+class UserBookForm(forms.ModelForm):
+	class Meta:
+		model = Booking
+		fields = '__all__'
+
+
 class AddPropertyForm(forms.ModelForm):
+	img = forms.ImageField()
 	class Meta:
 		model = Property
 		fields = ['name', 'description', 'bedrooms', 'floors', 'rate_by_day',
@@ -62,4 +76,10 @@ class CheckForm(forms.Form):
 	From_date = forms.DateField(widget=SelectDateWidget)
 	To_date = forms.DateField(widget=SelectDateWidget)
 
+
+
+class BookingForm(forms.ModelForm):
+	class Meta:
+		model = Booking
+		fields = '__all__'
 

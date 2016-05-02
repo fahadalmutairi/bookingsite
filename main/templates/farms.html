@@ -1,0 +1,8 @@
+{% extends 'base.html' %}
+
+{% block container %}
+    {% for farm in farms %}
+        <h2>{{ farm.name }}</h2>
+        <p> {{ farm.address.area }}</p>
+    {% endfor %}
+{% endblock %}
