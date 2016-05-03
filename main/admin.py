@@ -16,4 +16,3 @@ admin.site.register(PropertyImages)
 admin.site.register(CustomUser)
 admin.site.register(Booking)
 
-admin.site.register(Schedule_2)

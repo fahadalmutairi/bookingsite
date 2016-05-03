@@ -1,12 +1,12 @@
 from django import forms
-import datetime
 from django.contrib.auth.forms import UserCreationForm , UserChangeForm 
-from main.models import CustomUser, Property, PropertyImages , Address, Schedule_2 , Booking , Schedule
+from main.models import Property, PropertyImages, Address, Schedule, Booking,CustomUser, Booking
+import datetime
 from django.forms.extras.widgets import SelectDateWidget
 
 class FilterTime(forms.Form):
-	start = forms.DateField()
-	end = forms.DateField()
+	start = forms.DateField(widget=SelectDateWidget)
+	end = forms.DateField(widget=SelectDateWidget)
 
 # Create User Form
 class AreaSearchForm(forms.Form):

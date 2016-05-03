@@ -62,7 +62,7 @@ class Schedule(models.Model):
     # booked = models.BooleanField(default=False)
     property_object = models.ForeignKey('main.Property')
     def __unicode__(self):
-        return "%s" %self.property_object
+        return "property: %s start date: %s end date: %s" %(self.property_object, self.date_start, self.date_end)
 
 class Booking(models.Model):
     date_start = models.DateField(null=True, blank=True)
@@ -75,7 +75,7 @@ class Booking(models.Model):
 
 
     def __unicode__(self):
-        return "%s" % self.property_object
+        return "start:%s end:%s by: %s" % (self.date_start, self.date_end, self.user)
 
 
 class Address(models.Model):

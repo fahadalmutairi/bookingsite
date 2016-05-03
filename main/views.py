@@ -113,7 +113,7 @@ def create_booking(request, pk):
 	booking.save()
 
 	if booking:
-		return HttpResponse('pass')
+		return redirect('/profile/')
 
 
 	return HttpResponse('fail')
@@ -196,6 +196,7 @@ def sign_up(request):
 def login_view(request):
     context = {}
 
+    context['form'] = CustomUserLoginForm()
 
     if request.method == 'POST':
 
@@ -337,7 +338,6 @@ def apartments(request):
 		
 def index(request):
     return render_to_response('index.html')
-
 
 
 def check(request):
