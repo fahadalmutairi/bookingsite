@@ -10,7 +10,7 @@ urlpatterns = [
     # url(r'^$', 'project.views.home', name='home'),
     # url(r'^blog/', include('blog.urls')),
     url(r'^admin/', include(admin.site.urls)),
-	url(r'^index/$', 'main.views.index'),
+	url(r'^$', 'main.views.index'),
 
     url(r'^addproperty/$', 'main.views.add_property'),
     url(r'^editproperty/(?P<pk>.+)/$', 'main.views.edit_property'),

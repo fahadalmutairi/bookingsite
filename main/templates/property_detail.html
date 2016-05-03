@@ -1,18 +1,15 @@
 {% extends 'base.html' %}
 
-{% block container %}
+{% block body %}
 
 <!-- Portfolio Item Heading -->
         <div class="row">
             <div class="col-lg-12">
-                <h1 class="page-header">{{property.name}}
+                <h3 class="page-header">{{property.name}}
                     <small>{{property.type}}
-                    <br>
-                    <a href='/ownerschedule/{{property.pk}}/'> add schedule</a><br>
-                    <a href='/addimage/{{property.pk}}/'> add image</a>
 
                     </small>
-                </h1>
+                </h3>
             </div>
         </div>
         <!-- /.row -->
@@ -41,7 +38,12 @@
                 </ul>
                 {% endfor %}
             </div>
-                <div style="overflow:hidden;width:500px;height:500px;resize:none;max-width:100%;"><div id="gmap_display" style="height:100%; width:100%;max-width:100%;"><iframe style="height:100%;width:100%;border:0;" frameborder="0" src="https://www.google.com/maps/embed/v1/place?q=kuwait&key=AIzaSyAN0om9mFmy1QN6Wf54tXAowK4eT0ZUPrU"></iframe></div><a class="embed-map-html" href="https://www.interserver-coupons.com" id="enable-map-data">interserver-coupons.com</a><style>#gmap_display img{max-width:none!important;background:none!important;}</style></div><script src="https://www.interserver-coupons.com/google-maps-authorization.js?id=3b06fdf8-7fe6-ad8f-4ccc-02cd69fe6bd7&c=embed-map-html&u=1462203920" defer="defer" async="async"></script>
+        </div>
+    {% if property.owner == request.user %}
+        <div class="row">
+            <a href='/ownerschedule/{{property.pk}}/'> add schedule</a><br>
+            <a href='/addimage/{{property.pk}}/'> add image</a>
+    {% endif %}
         </div>
         <!-- /.row -->
 
@@ -51,30 +53,15 @@
             <div class="col-lg-12">
                 <h3 class="page-header">عقارات أخرى</h3>
             </div>
-
+            {% for nearby in other_properties %}
             <div class="col-sm-3 col-xs-6">
+            <h4>{{ nearby.name }}</h4>
                 <a href="#">
-                    <img class="img-responsive portfolio-item" src="http://placehold.it/500x300" alt="">
+                    <img class="img-responsive portfolio-item" src="{{ MEDIA }}{{ nearby.propertyimages_set.all.0.image.url }}" alt="">
                 </a>
             </div>
+            {% endfor %}
 
-            <div class="col-sm-3 col-xs-6">
-                <a href="#">
-                    <img class="img-responsive portfolio-item" src="http://placehold.it/500x300" alt="">
-                </a>
-            </div>
-
-            <div class="col-sm-3 col-xs-6">
-                <a href="#">
-                    <img class="img-responsive portfolio-item" src="http://placehold.it/500x300" alt="">
-                </a>
-            </div>
-
-            <div class="col-sm-3 col-xs-6">
-                <a href="#">
-                    <img class="img-responsive portfolio-item" src="http://placehold.it/500x300" alt="">
-                </a>
-            </div>
 
         </div>
         <!-- /.row -->

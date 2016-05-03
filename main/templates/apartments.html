@@ -1,6 +1,6 @@
 {% extends 'base.html' %}
 
-{% block container %}
+{% block body %}
     {% for apartment in apartments %}
         <h2>{{ apartment.name }}</h2>
         <p> {{ apartment.address.area }}</p>

@@ -1,11 +1,6 @@
 {% load staticfiles %}
 <!DOCTYPE html>
 <html lang="en">
-<!--[if lt IE 7]> <html class="no-js ie6 oldie" lang="en"> <![endif]-->
-<!--[if IE 7]>    <html class="no-js ie7 oldie" lang="en"> <![endif]-->
-<!--[if IE 8]>    <html class="no-js ie8 oldie" lang="en"> <![endif]-->
-<!--[if IE 9]>    <html class="no-js ie9" lang="en"> <![endif]-->
-<!--[if gt IE 9]><!--> <!--<![endif]-->
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0">
@@ -67,16 +62,20 @@
 					<span class="icon-bar"></span>
 					<span class="icon-bar"></span>
 				</button>
-				<a class="navbar-brand" href="#home">BookingSite</a>
+				<a class="navbar-brand" href="/">BookingSite</a>
 			</div>
 
 			<div class="collapse navbar-collapse navbar-right navbar-ex1-collapse">
 				<ul class="nav navbar-nav">
-					<li class="menuItem"><a href="#whatis">What is?</a></li>
-					<li class="menuItem"><a href="#useit">Use It</a></li>
-					<li class="menuItem"><a href="#screen">Screenshot</a></li>
-					<li class="menuItem"><a href="#credits">Credits</a></li>
-					<li class="menuItem"><a href="#contact">Contact</a></li>
+					<li class="menuItem"><a href="/property_list">Properties</a></li>
+					<li class="menuItem"><a href="#useit"></a></li>
+					<li class="menuItem"><a href="#screen"></a></li>
+					<li class="menuItem"><a href="#credits"></a></li>
+                    {% if request.user.is_authenticated %}
+                    <li class="menuItem"><a href="/profile">Profile</a> </li>
+                    {% else %}
+					<li class="menuItem"><a href="/signin">Sign in</a></li>
+                    {% endif %}
 					
 				</ul>
 			</div>
@@ -85,10 +84,11 @@
 	</nav> 
 	
 	
-	<div>
+	<div class="container">
    {% block body %}
    
    {% endblock %}
+    </div>
 </div>
 
 	
@@ -104,33 +104,8 @@
               Visita Andrea Galanti.it e vedrai tutte le news riguardanti nuovi Theme!<br/>
               Go to: <a  href="http://andreagalanti.it" target="_blank">andreagalanti.it</a>
             </p>
-			
-			<!-- LICENSE -->
-			<a rel="cc:attributionURL" href="http://www.andreagalanti.it/flatfy"
-		   property="dc:title">Flatfy Theme </a> by
-		   <a rel="dc:creator" href="http://www.andreagalanti.it"
-		   property="cc:attributionName">Andrea Galanti</a>
-		   is licensed to the public under 
-		   <BR>the <a rel="license"
-		   href="http://creativecommons.org/licenses/by-nc/3.0/it/deed.it">Creative
-		   Commons Attribution 3.0 License - NOT COMMERCIAL</a>.
-		   
-	   
           </div> <!-- /col-xs-7 -->
 
-          <div class="col-md-5">
-            <div class="footer-banner">
-              <h3 class="footer-title">Flatfy Theme</h3>
-              <ul>
-                <li>12 Column Grid Bootstrap</li>
-                <li>Form Contact</li>
-                <li>Drag Gallery</li>
-                <li>Full Responsive</li>
-                <li>Lorem Ipsum</li>
-              </ul>
-              Go to: <a href="http://andreagalanti.it/flatfy" target="_blank">andreagalanti.it/flatfy</a>
-            </div>
-          </div>
         </div>
       </div>
     </footer>
@@ -141,7 +116,7 @@
 	<script src="{% static 'js/owl.carousel.js' %}"></script>
 	<script src="{% static 'js/script.js' %}"></script>
 	<!-- StikyMenu -->
-	<script src="../static/js/stickUp.min.js' %}"></script>
+	<script src="{% static 'js/stickUp.min.js' %}"></script>
 	<script type="text/javascript">
 	  jQuery(function($) {
 		$(document).ready( function() {

@@ -294,6 +294,8 @@ def property_detail(request, pk):
     context = {}
     property_object = Property.objects.get(pk=pk)
     context['property'] = property_object
+    other_properties = Property.objects.filter(address__area=property_object.address.area)
+    context['other_properties'] = other_properties
     return render(request, 'property_detail.html', context)
 
 
