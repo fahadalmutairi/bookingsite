@@ -1,5 +1,5 @@
 from django.contrib import admin
-from main.models import Property, Rating, Schedule, Address, Amenities, PropertyImages, CustomUser, Booking
+from main.models import Property, Rating, Schedule, Address, Amenities, PropertyImages, CustomUser, Booking , Schedule_2
 
 # Register your models here.
 class PropertyInline(admin.StackedInline):

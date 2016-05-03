@@ -1,15 +1,8 @@
 {% extends 'base.html' %}
 
-{% block container %}
+{% block body %}
 
-	<p>Email: {{user.email}} </p>
-	<p>First Name: {{user.first_name}} </p>
-	<p>Last Name: {{ user.last_name}} </p>
-	<p>Date Joined: {{user.date_joined}} </p>
 
-	<a href="/edit_profile/">Edit Your Baisc Information </a>
-	<br>
-	<br>
 	{% if request.user.is_owner %}
 		
 		<div class="panel-body">
@@ -52,6 +45,104 @@
 		<p> <a href="/become_owner/"> Become Property Owner !</a> </p>
 
 	{% endif %}
+
+
+
+<!-- Credits -->
+	<div id="credits" class="content-section-a">
+		<div class="container">
+			<div class="row">
+			
+			<div class="col-md-6 col-md-offset-3 text-center wrap_title">
+				<h2>Profile</h2>
+				<p class="lead" style="margin-top:0">A special thanks to Death.</p>
+				<br>
+				<br>
+				<p>Email: {{user.email}} </p>
+			<p>First Name: {{user.first_name}} </p>
+			<p>Last Name: {{ user.last_name}} </p>
+			<p>Date Joined: {{user.date_joined}} </p>
+			 </div>
+
+			
+
+			 
+				<div class="col-sm-6  block wow bounceIn">
+					<div class="row">
+						<div class="col-md-4 box-icon rotate"> 
+							<i class="fa fa-desktop fa-4x "> </i> 
+						</div>
+						<div class="col-md-8 box-ct">
+							<h3>  <a href="/edit_profile/"> Edit Your Profile</a> </h3>
+							<p>Here you can edit your basic information</p>
+						</div>
+				  </div>
+			  	</div>
+
+  				<div class="col-sm-6 block wow bounceIn">
+					<div class="row">
+					   <div class="col-md-4 box-icon rotate"> 
+						 <i class="fa fa-heart fa-4x "> </i> 
+					   </div>
+					   <div class="col-md-8 box-ct">
+						 <h3>Rate Your Experience</h3>
+						 <p> Nullam mo  arcu ac molestie scelerisqu vulputate, molestie ligula gravida, tempus ipsum.</p> 
+					   </div>
+					</div>
+			  	</div>
+		  </div>
+		  {% if request.user.is_owner %}
+
+		  <div class="row tworow">
+				<div class="col-sm-6  block wow bounceIn">
+					<div class="row">
+						<div class="col-md-4 box-icon rotate"> 
+							<i class="fa fa-magic fa-4x "> </i> 
+						</div>
+						<div class="col-md-8 box-ct">
+							<h3>Edit Your Profile </h3>
+							<p> Lorem ipsum dolor sit ametconsectetur adipiscing elit. Suspendisse orci quam. </p>
+						</div>
+				  </div>
+			  </div>
+
+			  <div class="col-sm-6 block wow bounceIn">
+					<div class="row">
+					  <div class="col-md-4 box-icon rotate"> 
+						<i class="fa fa-picture-o fa-4x "> </i> 
+					  </div>
+					  <div class="col-md-8 box-ct">
+						<h3>Manage Properties</h3>
+						<p> Nullam mo  arcu ac molestie scelerisqu vulputate, molestie ligula gravida, tempus ipsum.</p> 
+					  </div>
+					</div>
+			  </div>
+
+		  </div>
+
+	{% else %}
+
+  <div class="row tworow">
+				<div class="col-sm-6  block wow bounceIn">
+					<div class="row">
+						<div class="col-md-4 box-icon rotate"> 
+							<i class="fa fa-magic fa-4x "> </i> 
+						</div>
+						<div class="col-md-8 box-ct">
+							<h3><a href="/become_owner/"> Become Property Owner</a> </h3>							
+							<p> Lorem ipsum dolor sit ametconsectetur </p>
+						</div>
+				  </div>
+			  </div>
+
+	{% endif %}
+
+		</div>
+	</div>
+
+
+
+
 
 
 			

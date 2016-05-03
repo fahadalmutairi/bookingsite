@@ -1,27 +1,38 @@
 {% extends 'base.html' %}
 
-{% block container %}
+ {% block body %}
 
-	<div class='container'>
-	
-		{% if request.user.is_authenticated %}
-	 	 <div class = 'row'>
-	 		<div class='col-md-12'>
-	 			Welcome : {{request.user}}
+<!-- Sign Up -->
+	<div id="Signup" class="content-section-a">
+		<div class="container">
+		
+			{% if request.user.is_authenticated %}
+	 	 	<div class = 'row'>
+	 			<div class='col-md-12'>
+	 				Welcome : {{request.user}}
+	 				
+	 			</div>
 	 		</div>
-	 	</div>
-	 	{% endif %}
+	 		{% endif %}
 
-	 	{% if not request.user.is_authenticated %}
-	 	<div class = 'row'>
-	 		<div class='col-md-12'>
-	 			<form action='/signup/' method='POST'>
-	 				{% csrf_token %}
-	 				{{form.as_p}}
-	 				<input type='submit' value='Sign Up'>
-	 			</form>
+	 		{% if not request.user.is_authenticated %}
+	 		<div class="row">
+				<div class="col-md-6 col-md-offset-3 text-center wrap_title">
+					<h2>Sign Up</h2>
+					<p class="lead" style="margin-top:0">A special thanks for you</p>
+	 				<form action='/signup/' method='POST'>
+	 					{% csrf_token %}
+	 					<table>
+	 					{# {{form.email.label}} {{form.email}} #}
+	 						{{form}}
+	 					</table>
+	 					<input type="submit" name="submit" id="submit" value="Sign Up" class="btn wow tada btn-embossed btn-primary pull-right">
+	 				</form>
+	 			</div>
 	 		</div>
-	 	</div>
-	 	{% endif %}
+	 		{% endif %}
+		</div>
+					
 	</div>
+
 {% endblock%}

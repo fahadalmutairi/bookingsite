@@ -55,10 +55,10 @@ class Migration(migrations.Migration):
             name='Booking',
             fields=[
                 ('id', models.AutoField(verbose_name='ID', serialize=False, auto_created=True, primary_key=True)),
-                ('date_start', models.DateField()),
-                ('date_end', models.DateField()),
+                ('date_start', models.DateField(null=True, blank=True)),
+                ('date_end', models.DateField(null=True, blank=True)),
                 ('booked', models.BooleanField(default=False)),
-                ('owner', models.ForeignKey(related_name='owner', to=settings.AUTH_USER_MODEL)),
+                ('owner', models.ForeignKey(related_name='owner', blank=True, to=settings.AUTH_USER_MODEL, null=True)),
             ],
         ),
         migrations.CreateModel(
@@ -106,7 +106,6 @@ class Migration(migrations.Migration):
                 ('property_object', models.ForeignKey(to='main.Property')),
             ],
         ),
-
         migrations.CreateModel(
             name='Schedule_2',
             fields=[
@@ -116,16 +115,16 @@ class Migration(migrations.Migration):
                 ('booked', models.BooleanField(default=False)),
                 ('property_o', models.ForeignKey(to='main.Property')),
             ],
-
+        ),
         migrations.AddField(
             model_name='booking',
             name='property_object',
-            field=models.ForeignKey(to='main.Property'),
+            field=models.ForeignKey(blank=True, to='main.Property', null=True),
         ),
         migrations.AddField(
             model_name='booking',
             name='schedule',
-            field=models.ForeignKey(to='main.Schedule'),
+            field=models.ForeignKey(blank=True, to='main.Schedule', null=True),
         ),
         migrations.AddField(
             model_name='booking',

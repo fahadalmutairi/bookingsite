@@ -196,14 +196,6 @@ def sign_up(request):
 def login_view(request):
     context = {}
 
-	if request.method == 'POST':
-		form = CustomUserLoginForm(request.POST)
-		context['form'] = form
-		if form.is_valid(): 
-			email = form.cleaned_data.get('email',None)
-			password= form.cleaned_data.get('password',None)
-			auth_user = authenticate(username=email, password=password)
-    context['form'] = CustomUserLoginForm()
 
     if request.method == 'POST':
 
@@ -217,7 +209,6 @@ def login_view(request):
 
             try:
                 login(request, auth_user)
-
             except Exception, e:
                 message = """
 				username or password incorrect, try again
@@ -343,18 +334,9 @@ def apartments(request):
     context['apartments'] = apartments
     return render(request, 'apartments.html', context)
 
-		if form.is_valid():
-			name = '%s' % form.cleaned_data['area']
-			context['property_list'] = Property.objects.filter(address__area__icontains=name)
-			return render_to_response('search_page.html', context, context_instance=request_context)
-		else:
-			context['valid'] = form.errors
-			return render_to_response('search_page.html', context, context_instance=request_context)
-	else:
-		form = AreaSearchForm()
-		context['form']	= form
-		return render_to_response('search_page.html', context, context_instance=request_context)
-
+		
+def index(request):
+    return render_to_response('index.html')
 
 
 

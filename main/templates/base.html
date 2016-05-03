@@ -1,123 +1,166 @@
-{% load crispy_forms_tags %}
 {% load staticfiles %}
 <!DOCTYPE html>
 <html lang="en">
-
+<!--[if lt IE 7]> <html class="no-js ie6 oldie" lang="en"> <![endif]-->
+<!--[if IE 7]>    <html class="no-js ie7 oldie" lang="en"> <![endif]-->
+<!--[if IE 8]>    <html class="no-js ie8 oldie" lang="en"> <![endif]-->
+<!--[if IE 9]>    <html class="no-js ie9" lang="en"> <![endif]-->
+<!--[if gt IE 9]><!--> <!--<![endif]-->
 <head>
-
-
     <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="description" content="">
-    <meta name="author" content="">
+    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0">
+    <meta name="description" content="Booking Site - Book homes from local hosts in Kuwait">
+    <meta name="author" content="ABDULAZIZ , FAHAD AND LAYLA">
 
-    <title>استأجر شاليهات باليوم</title>
+    <title>Booking Site </title>
 
-    <!-- Bootstrap Core CSS -->
+
+    <!-- Bootstrap core CSS -->
     <link href="{% static 'css/bootstrap.min.css' %}" rel="stylesheet">
+ 
+    <!-- Custom Google Web Font -->
+    <link href="{% static 'font-awesome/css/font-awesome.min.css' %}" rel="stylesheet">
+    <link href='http://fonts.googleapis.com/css?family=Lato:100,300,400,700,900,100italic,300italic,400italic,700italic,900italic' rel='stylesheet' type='text/css'>
+	<link href='http://fonts.googleapis.com/css?family=Arvo:400,700' rel='stylesheet' type='text/css'>
+	
+    <!-- Custom CSS-->
+    <link href="{% static 'css/general.css' %}" rel="stylesheet">
+	
+	 <!-- Owl-Carousel -->
+    <link href="{% static 'css/custom.css' %}" rel="stylesheet">
+	<link href="{% static 'css/owl.carousel.css' %}" rel="stylesheet">
+    <link href="{% static 'css/owl.theme.css' %}" rel="stylesheet">
+	<link href="{% static 'css/style.css' %}" rel="stylesheet">
+	<link href="{% static 'css/animate.css' %}" rel="stylesheet">
+	
+	<!-- Magnific Popup core CSS file -->
+	<link rel="stylesheet" href="{% static 'css/magnific-popup.css' %}"> 
+	
+	<script src="{% static 'js/modernizr-2.8.3.min.js' %}"></script>  <!-- Modernizr /-->
+	<!--[if IE 9]>
+		<script src="js/PIE_IE9.js"></script>
+	<![endif]-->
+	<!--[if lt IE 9]>
+		<script src="js/PIE_IE678.js"></script>
+	<![endif]-->
 
-    <!-- Custom CSS -->
-    <link href="{% static 'css/portfolio-item.css' %}" rel="stylesheet">
-
-    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
-    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
-    <!--[if lt IE 9]>
-        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
-        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
-    <![endif]-->
+	<!--[if lt IE 9]>
+		<script src="js/html5shiv.js"></script>
+	<![endif]-->
 
 </head>
 
-<body>
+<body id="home">
 
+	<!-- Preloader -->
+	<div id="preloader">
+		<div id="status"></div>
+	</div>
+	
+	 <!-- NavBar-->
+	<nav class="navbar-default" role="navigation">
+		<div class="container">
+			<div class="navbar-header">
+				<button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-ex1-collapse">
+					<span class="sr-only">Toggle navigation</span>
+					<span class="icon-bar"></span>
+					<span class="icon-bar"></span>
+					<span class="icon-bar"></span>
+				</button>
+				<a class="navbar-brand" href="#home">BookingSite</a>
+			</div>
 
-<!-- Navigation -->
-<nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
-    <div class="container">
-        <!-- Brand and toggle get grouped for better mobile display -->
-        <div class="navbar-header">
-            <button type="button" class="navbar-toggle" data-toggle="collapse"
-                    data-target="#bs-example-navbar-collapse-1">
-                <span class="sr-only">Toggle navigation</span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-            </button>
-            <a class="navbar-brand" href="/property_list/">Home</a>
-        </div>
-        <!-- Collect the nav links, forms, and other content for toggling -->
-        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-            <ul class="nav navbar-nav">
-                <li>
-                    <a href="/profile/">profile</a>
-                </li>
-                <li>
-                    <a href="/addproperty/">add property</a>
-                </li>
-                <li>
-                    <a href="/search/">Search</a>
-                </li>
-                <li>
-                    {% if request.user.is_authenticated %}
-
-                        <a href="/profile/">{{ user }}</a>
-                    {% endif %}
-                </li>
-                <li>
-                    {% if request.user.is_authenticated %}
-                        <a href="/logout/">Logout</a>
-                    {% else %}
-                        <a href="/signin/">signin</a>
-                    {% endif %}
-                </li>
-            </ul>
-        </div>
-        <!-- /.navbar-collapse -->
-    </div>
-    <!-- /.container -->
-</nav>
-<div class="container">
-    <div class="row">
-        <div class="col-md-3">
-            <p class="lead">Shop Name</p>
-            <div class="list-group">
-                <a href="/chalets" class="list-group-item">Chalets</a>
-                <a href="/farms" class="list-group-item">Farms</a>
-                <a href="#" class="list-group-item">Apartments</a>
-            </div>
-        </div>
-        <div clas="col-md-9">
-            {% block container %}
-
-
-            {% endblock %}
-        </div>
-    </div>
-
-
+			<div class="collapse navbar-collapse navbar-right navbar-ex1-collapse">
+				<ul class="nav navbar-nav">
+					<li class="menuItem"><a href="#whatis">What is?</a></li>
+					<li class="menuItem"><a href="#useit">Use It</a></li>
+					<li class="menuItem"><a href="#screen">Screenshot</a></li>
+					<li class="menuItem"><a href="#credits">Credits</a></li>
+					<li class="menuItem"><a href="#contact">Contact</a></li>
+					
+				</ul>
+			</div>
+		   
+		</div>
+	</nav> 
+	
+	
+	<div>
+   {% block body %}
+   
+   {% endblock %}
 </div>
 
-<!-- Footer -->
-<footer>
-    <div class="row">
-        <div class="col-lg-12">
-            <p>Copyright &copy; Your Website 2017</p>
+	
+	
+	
+	
+    <footer>
+      <div class="container">
+        <div class="row">
+          <div class="col-md-7">
+            <h3 class="footer-title">Follow Me!</h3>
+            <p>Vuoi ricevere news su altri template?<br/>
+              Visita Andrea Galanti.it e vedrai tutte le news riguardanti nuovi Theme!<br/>
+              Go to: <a  href="http://andreagalanti.it" target="_blank">andreagalanti.it</a>
+            </p>
+			
+			<!-- LICENSE -->
+			<a rel="cc:attributionURL" href="http://www.andreagalanti.it/flatfy"
+		   property="dc:title">Flatfy Theme </a> by
+		   <a rel="dc:creator" href="http://www.andreagalanti.it"
+		   property="cc:attributionName">Andrea Galanti</a>
+		   is licensed to the public under 
+		   <BR>the <a rel="license"
+		   href="http://creativecommons.org/licenses/by-nc/3.0/it/deed.it">Creative
+		   Commons Attribution 3.0 License - NOT COMMERCIAL</a>.
+		   
+	   
+          </div> <!-- /col-xs-7 -->
+
+          <div class="col-md-5">
+            <div class="footer-banner">
+              <h3 class="footer-title">Flatfy Theme</h3>
+              <ul>
+                <li>12 Column Grid Bootstrap</li>
+                <li>Form Contact</li>
+                <li>Drag Gallery</li>
+                <li>Full Responsive</li>
+                <li>Lorem Ipsum</li>
+              </ul>
+              Go to: <a href="http://andreagalanti.it/flatfy" target="_blank">andreagalanti.it/flatfy</a>
+            </div>
+          </div>
         </div>
-    </div>
-    <!-- /.row -->
-</footer>
+      </div>
+    </footer>
 
-{# </div> #}
-<!-- /.container -->
-
-<!-- jQuery -->
-<script src="{% static 'js/jquery.js' %}"></script>
-
-<!-- Bootstrap Core JavaScript -->
-<script src="{% static 'js/bootstrap.min.js' %}"></script>
-
+    <!-- JavaScript -->
+    <script src="{% static 'js/jquery-1.10.2.js' %}"></script>
+    <script src="{% static 'js/bootstrap.js' %}"></script>
+	<script src="{% static 'js/owl.carousel.js' %}"></script>
+	<script src="{% static 'js/script.js' %}"></script>
+	<!-- StikyMenu -->
+	<script src="../static/js/stickUp.min.js' %}"></script>
+	<script type="text/javascript">
+	  jQuery(function($) {
+		$(document).ready( function() {
+		  $('.navbar-default').stickUp();
+		  
+		});
+	  });
+	
+	</script>
+	<!-- Smoothscroll -->
+	<script type="text/javascript" src="{% static 'js/jquery.corner.js' %}"></script> 
+	<script src="{% static 'js/wow.min.js' %}"></script>
+	<script>
+	 new WOW().init();
+	</script>
+	<script src="{% static 'js/classie.js' %}"></script>
+	<script src="{% static 'js/uiMorphingButton_inflow.js' %}"></script>
+	<!-- Magnific Popup core JS file -->
+	<script src="{% static 'js/jquery.magnific-popup.js' %}"></script> 
 </body>
 
 </html>
-
