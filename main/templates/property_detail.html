@@ -2,7 +2,6 @@
 
 {% block body %}
 
-<<<<<<< HEAD
 
 <div class="content-section-b"> 
         
@@ -20,7 +19,7 @@
 
                     </div>   
                 </div>
-=======
+
 <!-- Portfolio Item Heading -->
         <div class="row">
             <div class="col-lg-12">
@@ -38,7 +37,7 @@
 
             <div class="col-md-8">
                 <img class="img-responsive" src="{{property.propertyimages_set.all.0.image.url}}" alt="">
->>>>>>> d0ff16e6fb229391fd6eda9d26bf61cf1fd2f306
+
                 
                 <div class="col-sm-6 wow fadeInRightBig"  data-animation-delay="200">   
                     <h3 class="section-heading"> {{property.name}} </h3>
@@ -75,25 +74,19 @@
                      {% endif%}
                 </div>              
             </div>
-<<<<<<< HEAD
-=======
         </div>
     {% if property.owner == request.user %}
         <div class="row">
             <a href='/ownerschedule/{{property.pk}}/'> add schedule</a><br>
             <a href='/addimage/{{property.pk}}/'> add image</a>
     {% endif %}
->>>>>>> d0ff16e6fb229391fd6eda9d26bf61cf1fd2f306
         </div>
   
 
 
             </div>
-<<<<<<< HEAD
-                <div style="overflow:hidden;width:500px;height:500px;resize:none;max-width:100%;"><div id="gmap_display" style="height:100%; width:100%;max-width:100%;"><iframe style="height:100%;width:100%;border:0;" frameborder="0" src="https://www.google.com/maps/embed/v1/place?q=kuwait&key=AIzaSyAN0om9mFmy1QN6Wf54tXAowK4eT0ZUPrU"></iframe></div><a class="embed-map-html" href="https://www.interserver-coupons.com" id="enable-map-data">interserver-coupons.com</a><style>#gmap_display img{max-width:none!important;background:none!important;}</style></div><script src="https://www.interserver-coupons.com/google-maps-authorization.js?id=3b06fdf8-7fe6-ad8f-4ccc-02cd69fe6bd7&c=embed-map-html&u=1462203920" defer="defer" async="async"></script> </style></div></p></div></div></div></div>
-
+        
     
-=======
             {% for nearby in other_properties %}
             <div class="col-sm-3 col-xs-6">
             <h4>{{ nearby.name }}</h4>
@@ -110,5 +103,4 @@
         <hr>
 
 
->>>>>>> d0ff16e6fb229391fd6eda9d26bf61cf1fd2f306
 {% endblock %}
