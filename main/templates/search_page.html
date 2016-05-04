@@ -1,6 +1,6 @@
 {%extends 'base.html'%}
 
-{% block container %}
+{% block body %}
 <form method="POST" action="/search/">
   {% csrf_token %}
   {{ form.as_table}}

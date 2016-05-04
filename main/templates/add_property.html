@@ -1,18 +1,25 @@
 {% extends 'base.html' %}
 
-{% block container %}
+{% block body %}
+<div  class="content-section-a">
+		<div class="container">
+
+
     <div class="row">
+		<div class="col-md-6 col-md-offset-3 text-center wrap_title">
 
         <form action='/addproperty/' method='POST' enctype='multipart/form-data'>
             {% csrf_token %}
+            <table>
             {{ form.as_p }}
-            <input type='submit' value='Add'>
+            </table>
+            <input type='submit' value='Add' class="btn wow tada btn-embossed btn-primary pull-right" id="submit">
         </form>
-
-
+</div>
+        </div>
     </div>
     <!-- /.row -->
-
+</div>
     <hr>
 
 
