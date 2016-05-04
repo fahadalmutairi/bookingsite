@@ -1,6 +1,8 @@
 from django import forms
-from django.contrib.auth.forms import UserCreationForm , UserChangeForm 
-from main.models import Property, PropertyImages, Address, Schedule, Booking,CustomUser, Booking
+from django.contrib.auth.forms import UserCreationForm , UserChangeForm
+from django.core.validators import MinValueValidator, MaxValueValidator
+
+from main.models import Property, PropertyImages, Address, Schedule, Booking,CustomUser, Booking, Rating
 import datetime
 from django.forms.extras.widgets import SelectDateWidget
 
@@ -82,4 +84,8 @@ class BookingForm(forms.ModelForm):
 	class Meta:
 		model = Booking
 		fields = '__all__'
+
+
+class AddRatingForm(forms.Form):
+	rating = forms.IntegerField(validators=[MaxValueValidator, MinValueValidator])
 

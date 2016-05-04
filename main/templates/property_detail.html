@@ -3,104 +3,64 @@
 {% block body %}
 
 
-<div class="content-section-b"> 
-        
-        <div class="container">
-            <div class="row">
-                <div class="col-sm-6 wow fadeInLeftBig">
-                     <div id="owl-demo-1" class="owl-carousel">
-                     {% for image in property.propertyimages_set.all %}
-                        <a href="{{image.image.url}}" class="image-link">
+    <div class="content-section-b">
+        <div class="row">
+            <h3>{{ property.name }}</h3>
+        </div>
+        <div class="row">
+            <div class="col-sm-6 wow fadeInLeftBig">
+
+                <div id="owl-demo-1" class="owl-carousel">
+                    {% for image in property.propertyimages_set.all %}
+                        <a href="{{ image.image.url }}" class="image-link">
                             <div class="item">
-                                <img  class="img-responsive img-rounded" src="{{image.image.url}}" alt="">
+                                <img class="img-responsive img-rounded" src="{{ image.image.url }}" alt="">
                             </div>
                         </a>
-                        {% endfor %}
-
-                    </div>   
-                </div>
-
-<!-- Portfolio Item Heading -->
-        <div class="row">
-            <div class="col-lg-12">
-                <h3 class="page-header">{{property.name}}
-                    <small>{{property.type}}
-
-                    </small>
-                </h3>
-            </div>
-        </div>
-        <!-- /.row -->
-
-        <!-- Portfolio Item Row -->
-        <div class="row">
-
-            <div class="col-md-8">
-                <img class="img-responsive" src="{{property.propertyimages_set.all.0.image.url}}" alt="">
-
-                
-                <div class="col-sm-6 wow fadeInRightBig"  data-animation-delay="200">   
-                    <h3 class="section-heading"> {{property.name}} </h3>
-                    <div class="sub-title lead3"> {{property.type }} </div>
-
-                    <div class="sub-title lead3">
-                    <p>
-                        {{ property.description }}
-                        </p>
-                    </div>
-
-                    <div class="sub-title lead3">
-
-                    {% for amenities in property.amenities.all %}
-                        <il>
-                         {{ amenities.name }}
-                       </il>
                     {% endfor %}
-                    <br>
-                    <br>
-                    </div>
 
+                </div>
+            </div>
+            <div class="col-sm-6 wow fadeInRightBig">
+                <h4>{{ property.name }}</h4>
+                <p>{{ property.description }}</p>
+                <p>Daily Rate: {{ property.rate_by_day }}</p>
+                <p>Weekly Rate: {{ property.rate_by_week }}</p>
+                <p>Bedrooms: {{ property.bedrooms }}</p>
+                <p>Floors: {{ property.floors }}</p>
+                <p>User Rating: {{ average }}</p>
+                <p>
+                Rate the property:
+                <form method="post" action="">
+                    {% csrf_token %}
+                    <input name="rating" type="number" pattern="-?[0-9]*(\.[0-9]+)?" max="5" min="1">
+                    <input type="submit">
+                </form>
 
-                    {% if request.user = property.owner %}
-            
-                     <p><a class="btn btn-embossed btn-primary" 
-                     href="/addimage/{{property.pk}}" role="button">Manage Images</a> 
-
-                    <a class="btn btn-embossed btn-info" 
-                    href="/ownerschedule/{{property.pk}}" 
-                    role="button">Manage Schedule</a></p>
-                     {% else %}
-                     <p><a class="btn btn-embossed btn-primary" href="#" role="button">Book Now !</a> 
-                     {% endif%}
-                </div>              
+                </p>
             </div>
         </div>
-    {% if property.owner == request.user %}
+        <hr>
         <div class="row">
-            <a href='/ownerschedule/{{property.pk}}/'> add schedule</a><br>
-            <a href='/addimage/{{property.pk}}/'> add image</a>
-    {% endif %}
-        </div>
-  
-
-
-            </div>
-        
-    
             {% for nearby in other_properties %}
-            <div class="col-sm-3 col-xs-6">
-            <h4>{{ nearby.name }}</h4>
-                <a href="#">
-                    <img class="img-responsive portfolio-item" src="{{ MEDIA }}{{ nearby.propertyimages_set.all.0.image.url }}" alt="">
-                </a>
-            </div>
+                <div class="col-sm-3 col-xs-6">
+                    <h4>{{ nearby.name }}</h4>
+                    <a href="#">
+                        <img class="img-responsive portfolio-item"
+                             src="{{ MEDIA }}{{ nearby.propertyimages_set.all.0.image.url }}" alt="">
+                    </a>
+                </div>
             {% endfor %}
 
+        </div>
+        <div class="row">
 
         </div>
-        <!-- /.row -->
 
-        <hr>
 
+    </div>
+    <!-- /.row -->
+
+    <hr>
 
 {% endblock %}
