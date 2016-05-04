@@ -2,6 +2,24 @@
 
 {% block body %}
 
+
+<div class="content-section-b"> 
+        
+        <div class="container">
+            <div class="row">
+                <div class="col-sm-6 wow fadeInLeftBig">
+                     <div id="owl-demo-1" class="owl-carousel">
+                     {% for image in property.propertyimages_set.all %}
+                        <a href="{{image.image.url}}" class="image-link">
+                            <div class="item">
+                                <img  class="img-responsive img-rounded" src="{{image.image.url}}" alt="">
+                            </div>
+                        </a>
+                        {% endfor %}
+
+                    </div>   
+                </div>
+
 <!-- Portfolio Item Heading -->
         <div class="row">
             <div class="col-lg-12">
@@ -19,24 +37,42 @@
 
             <div class="col-md-8">
                 <img class="img-responsive" src="{{property.propertyimages_set.all.0.image.url}}" alt="">
+
                 
-            </div>
+                <div class="col-sm-6 wow fadeInRightBig"  data-animation-delay="200">   
+                    <h3 class="section-heading"> {{property.name}} </h3>
+                    <div class="sub-title lead3"> {{property.type }} </div>
 
-            <div class="col-md-4">
+                    <div class="sub-title lead3">
+                    <p>
+                        {{ property.description }}
+                        </p>
+                    </div>
 
-                <h3>التفاصيل</h3>
+                    <div class="sub-title lead3">
 
-                <h3>Property Description</h3>
+                    {% for amenities in property.amenities.all %}
+                        <il>
+                         {{ amenities.name }}
+                       </il>
+                    {% endfor %}
+                    <br>
+                    <br>
+                    </div>
 
-                <p>{{ property.description }}</p>
-                <p> <a href='/editproperty/{{property.pk}}/'> edit property</a></p>
-                <h3>Amenties</h3>
-                {% for amenities in property.amenities_set.all %}
-                <ul>
-                    <li>{{property.amenities_set.name}}</li>
 
-                </ul>
-                {% endfor %}
+                    {% if request.user = property.owner %}
+            
+                     <p><a class="btn btn-embossed btn-primary" 
+                     href="/addimage/{{property.pk}}" role="button">Manage Images</a> 
+
+                    <a class="btn btn-embossed btn-info" 
+                    href="/ownerschedule/{{property.pk}}" 
+                    role="button">Manage Schedule</a></p>
+                     {% else %}
+                     <p><a class="btn btn-embossed btn-primary" href="#" role="button">Book Now !</a> 
+                     {% endif%}
+                </div>              
             </div>
         </div>
     {% if property.owner == request.user %}
@@ -45,14 +81,12 @@
             <a href='/addimage/{{property.pk}}/'> add image</a>
     {% endif %}
         </div>
-        <!-- /.row -->
+  
 
-        <!-- Related Projects Row -->
-        <div class="row">
 
-            <div class="col-lg-12">
-                <h3 class="page-header">عقارات أخرى</h3>
             </div>
+        
+    
             {% for nearby in other_properties %}
             <div class="col-sm-3 col-xs-6">
             <h4>{{ nearby.name }}</h4>
