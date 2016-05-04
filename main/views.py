@@ -221,7 +221,7 @@ def login_view(request):
 
 def logout_view(request):
     logout(request)
-    return redirect('/signup/')
+    return redirect('/')
 
 
 def add_property(request):

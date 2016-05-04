@@ -1,15 +1,78 @@
 {%extends 'base.html'%}
 
-{% block container %}
-<form method="POST" action="/search/">
-  {% csrf_token %}
-  {{ form.as_table}}
-<input type="submit", value="Search" />
-</form>
-{{ valid }}
-{{property_list.name}}
-{% for area in property_list %}
+{% block body %}
 
-<a href="/property_detail/{{area.pk}}/">{{area.name}}</a><br>
-{%endfor%}
+
+<div id="search" class="content-section-a">
+	<div class="container">
+		<div class="row">		
+			<div class="col-md-6 col-md-offset-3 text-center wrap_title">
+				<h2>Search</h2>
+				<p class="lead" style="margin-top:0">Your Next Property</p>
+				<form method="POST" action="/search/">
+  					{% csrf_token %}
+  					{{ form.as_table}}
+					<input type="submit" name="submit" id="submit" value="Search" 	class="btn wow tada btn-embossed btn-primary pull-right">
+				</form>
+			</div>
+
+		</div>
+	</div>
+</div>
+
+{% if  property_list %}
+
+<div id="property" class="content-section-b">
+	<div class="container">
+		<div class="row">
+			<div class="col-md-6 col-md-offset-3 text-center wrap_title">
+				<h2>We Find</h2>
+				<p class="lead" style="margin-top:0">This Property List for you</p>
+			</div>
+		</div>
+
+		<div class="panel-body">
+			<div class="row">
+				<div class="col-lg-4">
+					<div class="table-responsive">
+						<table class="table table-bordered table-hover table-striped">
+							<thead>
+							<tr>
+							<th>#</th>
+							<th>Name</th>
+							<th>Desceiption</th>
+						</tr>
+						</thead>
+						<tbody>
+							{% for property in property_list %}
+							{% if property  %}
+								<tr>
+								<td><a href="/property_detail/{{property.pk}}/">{{property.pk}}</a><br> </td>
+								<td><a href="/property_detail/{{property.pk}}/">{{property.name}}</a><br> </td>
+								</tr>
+							{% endif %}
+							{% endfor %}
+						</tbody>
+						</table>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+
+{% elif  property_list  %}
+
+	<div class="content-section-b">
+		<div class="container">
+			<div class="row">
+			<div class="col-md-6 col-md-offset-3 text-center wrap_title">
+				<h2>Sorry !!</h2>
+				<p class="lead" style="margin-top:0">No Result for your search</p>
+			</div>
+			</div>
+		</div>
+	</div>
+		
+{% endif %}
 {%endblock%}

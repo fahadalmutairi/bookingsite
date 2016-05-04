@@ -1,85 +1,66 @@
 {% extends 'base.html' %}
 
-{% block container %}
+{% block body %}
 
-<!-- Portfolio Item Heading -->
-        <div class="row">
-            <div class="col-lg-12">
-                <h1 class="page-header">{{property.name}}
-                    <small>{{property.type}}
-                    <br>
-                    <a href='/ownerschedule/{{property.pk}}/'> add schedule</a><br>
-                    <a href='/addimage/{{property.pk}}/'> add image</a>
 
-                    </small>
-                </h1>
-            </div>
-        </div>
-        <!-- /.row -->
+<div class="content-section-b"> 
+        
+        <div class="container">
+            <div class="row">
+                <div class="col-sm-6 wow fadeInLeftBig">
+                     <div id="owl-demo-1" class="owl-carousel">
+                     {% for image in property.propertyimages_set.all %}
+                        <a href="{{image.image.url}}" class="image-link">
+                            <div class="item">
+                                <img  class="img-responsive img-rounded" src="{{image.image.url}}" alt="">
+                            </div>
+                        </a>
+                        {% endfor %}
 
-        <!-- Portfolio Item Row -->
-        <div class="row">
-
-            <div class="col-md-8">
-                <img class="img-responsive" src="{{property.propertyimages_set.all.0.image.url}}" alt="">
+                    </div>   
+                </div>
                 
+                <div class="col-sm-6 wow fadeInRightBig"  data-animation-delay="200">   
+                    <h3 class="section-heading"> {{property.name}} </h3>
+                    <div class="sub-title lead3"> {{property.type }} </div>
+
+                    <div class="sub-title lead3">
+                    <p>
+                        {{ property.description }}
+                        </p>
+                    </div>
+
+                    <div class="sub-title lead3">
+
+                    {% for amenities in property.amenities.all %}
+                        <il>
+                         {{ amenities.name }}
+                       </il>
+                    {% endfor %}
+                    <br>
+                    <br>
+                    </div>
+
+
+                    {% if request.user = property.owner %}
+            
+                     <p><a class="btn btn-embossed btn-primary" 
+                     href="/addimage/{{property.pk}}" role="button">Manage Images</a> 
+
+                    <a class="btn btn-embossed btn-info" 
+                    href="/ownerschedule/{{property.pk}}" 
+                    role="button">Manage Schedule</a></p>
+                     {% else %}
+                     <p><a class="btn btn-embossed btn-primary" href="#" role="button">Book Now !</a> 
+                     {% endif%}
+                </div>              
             </div>
-
-            <div class="col-md-4">
-
-                <h3>التفاصيل</h3>
-
-                <h3>Property Description</h3>
-
-                <p>{{ property.description }}</p>
-                <p> <a href='/editproperty/{{property.pk}}/'> edit property</a></p>
-                <h3>Amenties</h3>
-                {% for amenities in property.amenities_set.all %}
-                <ul>
-                    <li>{{property.amenities_set.name}}</li>
-
-                </ul>
-                {% endfor %}
-            </div>
-                <div style="overflow:hidden;width:500px;height:500px;resize:none;max-width:100%;"><div id="gmap_display" style="height:100%; width:100%;max-width:100%;"><iframe style="height:100%;width:100%;border:0;" frameborder="0" src="https://www.google.com/maps/embed/v1/place?q=kuwait&key=AIzaSyAN0om9mFmy1QN6Wf54tXAowK4eT0ZUPrU"></iframe></div><a class="embed-map-html" href="https://www.interserver-coupons.com" id="enable-map-data">interserver-coupons.com</a><style>#gmap_display img{max-width:none!important;background:none!important;}</style></div><script src="https://www.interserver-coupons.com/google-maps-authorization.js?id=3b06fdf8-7fe6-ad8f-4ccc-02cd69fe6bd7&c=embed-map-html&u=1462203920" defer="defer" async="async"></script>
         </div>
-        <!-- /.row -->
+  
 
-        <!-- Related Projects Row -->
-        <div class="row">
 
-            <div class="col-lg-12">
-                <h3 class="page-header">عقارات أخرى</h3>
             </div>
+                <div style="overflow:hidden;width:500px;height:500px;resize:none;max-width:100%;"><div id="gmap_display" style="height:100%; width:100%;max-width:100%;"><iframe style="height:100%;width:100%;border:0;" frameborder="0" src="https://www.google.com/maps/embed/v1/place?q=kuwait&key=AIzaSyAN0om9mFmy1QN6Wf54tXAowK4eT0ZUPrU"></iframe></div><a class="embed-map-html" href="https://www.interserver-coupons.com" id="enable-map-data">interserver-coupons.com</a><style>#gmap_display img{max-width:none!important;background:none!important;}</style></div><script src="https://www.interserver-coupons.com/google-maps-authorization.js?id=3b06fdf8-7fe6-ad8f-4ccc-02cd69fe6bd7&c=embed-map-html&u=1462203920" defer="defer" async="async"></script> </style></div></p></div></div></div></div>
 
-            <div class="col-sm-3 col-xs-6">
-                <a href="#">
-                    <img class="img-responsive portfolio-item" src="http://placehold.it/500x300" alt="">
-                </a>
-            </div>
-
-            <div class="col-sm-3 col-xs-6">
-                <a href="#">
-                    <img class="img-responsive portfolio-item" src="http://placehold.it/500x300" alt="">
-                </a>
-            </div>
-
-            <div class="col-sm-3 col-xs-6">
-                <a href="#">
-                    <img class="img-responsive portfolio-item" src="http://placehold.it/500x300" alt="">
-                </a>
-            </div>
-
-            <div class="col-sm-3 col-xs-6">
-                <a href="#">
-                    <img class="img-responsive portfolio-item" src="http://placehold.it/500x300" alt="">
-                </a>
-            </div>
-
-        </div>
-        <!-- /.row -->
-
-        <hr>
-
-
+    
 {% endblock %}
