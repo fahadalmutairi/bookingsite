@@ -14,6 +14,8 @@ urlpatterns = [
 
     url(r'^addproperty/$', 'main.views.add_property'),
     url(r'^editproperty/(?P<pk>.+)/$', 'main.views.edit_property'),
+    url(r'^add_address/(?P<pk>.+)/$', 'main.views.add_address'),
+
     url(r'^addimage/$', 'main.views.add_image'),
 
     url(r'^signup/$', 'main.views.sign_up'),
