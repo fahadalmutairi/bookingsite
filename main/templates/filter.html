@@ -1,37 +1,57 @@
 {% extends 'base.html' %}
 
 {% block body %}
-<div class="row">
-<form action='/filter/' method='POST' enctype='multipart/form-data'>
-{%csrf_token%}
+ <div class="col-md-3">
 
-{{form.as_p}}
-<input type='submit' value ='search'>
-</form>
+	<form action='/filter/' method='POST' enctype='multipart/form-data'>
+	{%csrf_token%}
 
-{{valid}}
-{%for i in date_start%}
-	{{i.property_object}}<br>
-	<img src="{{i.property_object.propertyimages_set.all.0.image.url}}"> <br>
-	{{i.date_start}}
-	{{i.date_end}}
-
-
-	<form action='/create_booking/{{i.pk}}/' method='GET'>
-		<input type='hidden' name='start_date' value='{{ i.date_start|date:"Y-m-d"}}'>
-		<input type='hidden' name='end_date' value='{{ i.date_end|date:"Y-m-d"}}'>
-		<input type='hidden' name='owner' value='{{ i.owner}}'>
-		<input type='hidden' name='property_object' value='{{ i.property_object.pk}}'>
-
-
-		<input type='hidden' name='s_pk' value='{{ i.pk }}'>
-
-		<input type='submit' value='book'>
-
+	{{form.as_p}}
+	<input type='submit' value ='search'>
 	</form>
+</div>
 
-	<hr>
-{%endfor%}
+<div class="container">
+	<div class="row">
+		{%for i in date_start%}
+
+		   	<div class="col-sm-4 col-lg-4 col-md-4">
+
+
+						   <div class="thumbnail">
+
+								{{i.property_object}}<br>
+								<img src="{{i.property_object.propertyimages_set.all.0.image.url}}"> <br>
+
+								<div class="caption">
+									{{i.date_start}}
+									{{i.date_end}}
+
+
+
+										<form action='/create_booking/{{i.pk}}/' method='GET'>
+											<input type='hidden' name='start_date' value='{{ i.date_start|date:"Y-m-d"}}'>
+											<input type='hidden' name='end_date' value='{{ i.date_end|date:"Y-m-d"}}'>
+											<input type='hidden' name='owner' value='{{ i.owner}}'>
+											<input type='hidden' name='property_object' value='{{ i.property_object.pk}}'>
+
+
+											<input type='hidden' name='s_pk' value='{{ i.pk }}'>
+
+											<input type='submit' value='book'>
+
+										</form>
+								</div>
+							</div>
+
+					</div>
+		{%endfor%}
+
+		</div>
+	</div>
+				
+
+		
 
 
 {% comment %}
