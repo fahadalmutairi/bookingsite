@@ -46,11 +46,13 @@ class OwnerAddScheduleForm(forms.ModelForm):
 	class Meta:
 		model = Schedule
 		fields = ['date_start','date_end']
+		widgets = {'date_start':SelectDateWidget(), 'date_end':SelectDateWidget()}
 
 class UserBookForm(forms.ModelForm):
 	class Meta:
 		model = Booking
 		fields = '__all__'
+
 
 
 class AddPropertyForm(forms.ModelForm):
@@ -61,7 +63,6 @@ class AddPropertyForm(forms.ModelForm):
 				'rate_by_week', 'longitude', 'latitude']
 
 class EditPropertyFrom(forms.ModelForm):
-	img = forms.ImageField()
 	class Meta:
 		model = Property
 		fields = ['name', 'description', 'bedrooms', 'floors', 'rate_by_day',

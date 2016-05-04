@@ -256,9 +256,7 @@ def edit_property(request, pk):
 
         context['form'] = form
         if form.is_valid():
-            form.save(commit=False)
-            property_image = PropertyImages.objects.create(property_object=property_object)
-            property_image.image = form.cleaned_data['img']
+
             property_image.save()
 
             return redirect('/property_detail/%s/' % property_object.pk)

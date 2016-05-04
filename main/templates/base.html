@@ -72,6 +72,10 @@
 
 			<div class="collapse navbar-collapse navbar-right navbar-ex1-collapse">
 				<ul class="nav navbar-nav">
+
+				<li class="menuItem"><a href="/property_list/">View properties</a></li>
+
+
 				{% if not request.user.is_authenticated %}
 
 		
@@ -81,7 +85,7 @@
 				{% endif %}
 
 				{% if request.user.is_authenticated %}
-					<li class="menuItem"> <a > Welcome {{request.user.first_name }} </a></li>
+					<li class="menuItem"><a href="/filter/">Book</a></li>
 					<li class="menuItem"><a href="/profile">Your Profile</a></li>
 					<li class="menuItem"><a href="/search">Search For Property</a></li>
 					<li class="menuItem"><a href="/logout">Log Out</a></li>
