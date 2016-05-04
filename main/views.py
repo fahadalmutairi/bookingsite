@@ -337,7 +337,26 @@ def apartments(request):
 
 		
 def index(request):
-    return render_to_response('index.html')
+    request_context = RequestContext(request)
+    context = {}
+    if request.method == 'POST':
+        form = AreaSearchForm(request.POST)
+        context['form'] = form
+
+        if form.is_valid():
+            name = '%s' % form.cleaned_data['area']
+            context['property_list'] = Property.objects.filter(address__area__icontains=name)
+            return render_to_response('index.html', context, context_instance=request_context)
+        else:
+            context['valid'] = form.errors
+            return render_to_response('index.html', context, context_instance=request_context)
+    else:
+        form = AreaSearchForm()
+        context['form'] = form
+        return render_to_response('index.html', context, context_instance=request_context)
+
+
+ 
 
 
 def check(request):

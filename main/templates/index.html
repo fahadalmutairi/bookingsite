@@ -115,7 +115,7 @@
 						<p class="lead" style="margin-top:0">Get Your Next Home</p>
 						<form method="POST" action="/search/">
   							{% csrf_token %}
-  							{{ form.as_table}}
+  							{{ form.as_p}}
 							<input type="submit" name="submit" id="submit" value="Search" 	class="btn wow tada btn-embossed btn-primary pull-right">
 						</form>
 				</div>
