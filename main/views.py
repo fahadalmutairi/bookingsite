@@ -12,13 +12,16 @@ from django.http import HttpResponse , Http404, HttpResponseRedirect
 from datetime import datetime
 from itertools import chain
 from django.db.models import Q
+import requests
 # Create your views here.
 
 
 def become_owner(request):
-	request.user.is_owner = True 
-	request.user.save()
-	return render(request, 'become_owner.html')
+    request.user.is_owner = True 
+    request.user.save()
+    r = send_simple_message(request.user,"Congratulations..", "You become an approved property owner")
+    print r.text
+    return render(request, 'become_owner.html')
 
 
 def user_book(request):
@@ -60,6 +63,21 @@ def area_search(request):
 		form = AreaSearchForm()
 		context['form']	= form
 		return render_to_response('search_page.html', context, context_instance=request_context)
+
+
+
+def type_search(request):
+    context = {}
+
+    try:
+        context['property_list'] = Property.objects.filter(type =request.user.pk)
+    except Exception, e:
+        raise Http404('404')
+    
+    return render_to_response(request, 'property_list.html', context)
+   
+
+
 
 def filter(request):
 	context = {}
@@ -186,10 +204,11 @@ def sign_up(request):
 
             try:
                 login(request, auth_user)
+                r = send_simple_message(email, "Welcome and Thanks" , "You have successfully signed up to Bookingsite.")
+                print r.text
             except Exception, e:
                 print e
                 return HttpResponse('invalid user, try again <a href="/signup/">here</a>')
-
     return render(request, 'signup.html', context)
 
 
@@ -333,7 +352,7 @@ def farms(request):
 
 def apartments(request):
     context = {}
-    farms = Property.objects.filter(property_type_choices__icontains='apartment')
+    apartments = Property.objects.filter(property_type_choices__icontains='apartment')
     context['apartments'] = apartments
     return render(request, 'apartments.html', context)
 
@@ -359,20 +378,12 @@ def index(request):
 
 
  
-
-
-def check(request):
-	context = {}
-	context['form'] = CheckForm()
-	#context['unreserved'] = Property.objects.filter(From_date)
-	
-	context['all'] = Property.objects.all()
-
-	booked= Schedule_2.objects.filter(Rdate =datetime.now())
-	context['unbooked']= booked
-
-	#context['booked'] = booked.property_set.all()
-
-   # context['unbooked']= context['all'].exclude(Schedule_2.property_object.filter(Rdate = datetime.date.today()))
-	return render(request, 'check.html', context)
+def send_simple_message(to, sub, text):
+    return requests.post(
+        "https://api.mailgun.net/v3/samples.mailgun.org/messages",
+        auth=("api", "key-3ax6xnjp29jd6fds4gc373sgvjxteol0"),
+        data={"from": "BookingSite.com <excited@samples.mailgun.org>",
+              "to": [to, ],
+              "subject": sub ,
+              "text": text })
 
