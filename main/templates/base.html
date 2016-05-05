@@ -81,7 +81,15 @@
 				{% endif %}
 
 				{% if request.user.is_authenticated %}
-					<li class="menuItem"> <a > Welcome {{request.user.first_name }} </a></li>
+					
+
+					{% if request.user.first_name == None %}
+					<li class="menuItem">
+					 <a > Welcome {{request.user}} </a></li>
+					{% else%}
+					<li class="menuItem">
+					 <a > Welcome {{request.user.first_name }} </a></li>
+					{% endif %}
 					<li class="menuItem"><a href="/profile">Your Profile</a></li>
 					<li class="menuItem"><a href="/search">Search For Property</a></li>
 					<li class="menuItem"><a href="/logout">Log Out</a></li>
@@ -99,11 +107,11 @@
    {% block body %}
    
    {% endblock %}
-</div>
+	</div>
 
 	
 	
-	  <footer>
+    <footer>
       <div id="follow" class="container">
         <div class="row">
           <div class="col-md-7">

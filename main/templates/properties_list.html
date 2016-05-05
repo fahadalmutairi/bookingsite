@@ -1,46 +1,46 @@
 {% extends 'base.html' %}
 
 {% block body %}
-            <div class="col-md-3">
-            <h4>
-                Browse by Property Type:
-            </h4>
 
-            <ul>
-                <li><a href="/apartments">Apartments</a> </li>
-                <li><a href="/chalets">Chalets</a> </li>
-                <li><a href="/farms">Farms</a> </li>
-            </ul>
-
+<div class="container">
+    <div>
+    <div class="col-md-3">
+        <h5>
+            Browse by Property Type:
+        </h5>
+        <ul>
+            <li><a href="/apartments">Apartments</a> </li>
+            <li><a href="/chalets">Chalets</a> </li>
+            <li><a href="/farms">Farms</a> </li>
+        </ul>
+    </div>
+    <div class="col-md-9">
+        {%for property in properties%}
+            <div class="col-sm-4 col-lg-4 col-md-4">
+                <div class="thumbnail">
+                <img src="{{property.propertyimages_set.all.0.image.url}}" alt="">
+                <div class="caption">
+                    <h4 class="pull-right">{{property.price}}</h4>
+                    <h4><a href="/property_detail/{{property.pk}}">{{property.name}}</a></h4>
+                    <p>{{property.description}}  <br><a target="_blank" href="/property_detail/{{property.pk}}">{{property.name}}</a>.</p>
+                </div>
+                <div class="ratings">
+                    <p class="pull-right">{{ property.rating_set.all.count }}</p>
+                    <p>
+                        <span class="glyphicon glyphicon-star"></span>
+                        <span class="glyphicon glyphicon-star"></span>
+                        <span class="glyphicon glyphicon-star"></span>
+                        <span class="glyphicon glyphicon-star"></span>
+                        <span class="glyphicon glyphicon-star"></span>
+                    </p>
+                </div>
+                </div>
             </div>
-            <div class="col-md-9">
+        {%endfor%}
+    </div>
+    <div>
+</div>
+</div>
 
 
-
-                    {%for property in properties%}
-                    <div class="col-sm-4 col-lg-4 col-md-4">
-
-                        <div class="thumbnail">
-                            <img src="{{property.propertyimages_set.all.0.image.url}}" alt="">
-                            <div class="caption">
-                                <h4 class="pull-right">{{property.price}}</h4>
-                                <h4><a href="/property_detail/{{property.pk}}">{{property.name}}</a>
-                                </h4>
-                                <p>{{property.description}}  <br><a target="_blank" href="/property_detail/{{property.pk}}">{{property.name}}</a>.</p>
-                            </div>
-                            <div class="ratings">
-                                <p class="pull-right">{{ property.rating_set.all.count }}</p>
-                                <p>
-                                    <span class="glyphicon glyphicon-star"></span>
-                                    <span class="glyphicon glyphicon-star"></span>
-                                    <span class="glyphicon glyphicon-star"></span>
-                                    <span class="glyphicon glyphicon-star"></span>
-                                    <span class="glyphicon glyphicon-star"></span>
-                                </p>
-                            </div>
-                        </div>
-                    </div>
-                     {%endfor%}
-
-            </div>
 {% endblock %}

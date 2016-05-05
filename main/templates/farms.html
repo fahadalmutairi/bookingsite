@@ -1,8 +1,47 @@
+
 {% extends 'base.html' %}
 
 {% block body %}
-    {% for farm in farms %}
-        <h2>{{ farm.name }}</h2>
-        <p> {{ farm.address.area }}</p>
-    {% endfor %}
+
+<div class="container">
+    <div>
+    <div class="col-md-3">
+        <h5>
+            Browse by Property Type:
+        </h5>
+        <ul>
+            <li><a href="/apartments">Apartments</a> </li>
+            <li><a href="/chalets">Chalets</a> </li>
+            <li><a href="/farms">Farms</a> </li>
+        </ul>
+    </div>
+    <div class="col-md-9">
+      {% for farm in farms %}
+            <div class="col-sm-4 col-lg-4 col-md-4">
+                <div class="thumbnail">
+                <img src="{{farm.propertyimages_set.all.0.image.url}}" alt="">
+                <div class="caption">
+                    <h4 class="pull-right">{{farm.price}}</h4>
+                    <h4><a href="/property_detail/{{farm.pk}}">{{farm.name}}</a></h4>
+                    <p>{{farm.description}}  <br><a target="_blank" href="/property_detail/{{farm.pk}}">{{farm.name}}</a>.</p>
+                </div>
+                <div class="ratings">
+                    <p class="pull-right">{{ farm.rating_set.all.count }}</p>
+                    <p>
+                        <span class="glyphicon glyphicon-star"></span>
+                        <span class="glyphicon glyphicon-star"></span>
+                        <span class="glyphicon glyphicon-star"></span>
+                        <span class="glyphicon glyphicon-star"></span>
+                        <span class="glyphicon glyphicon-star"></span>
+                    </p>
+                </div>
+                </div>
+            </div>
+        {%endfor%}
+    </div>
+    <div>
+</div>
+</div>
+
+
 {% endblock %}

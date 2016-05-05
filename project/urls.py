@@ -23,8 +23,6 @@ urlpatterns = [
   	url(r'^edit_profile/$', 'main.views.edit_profile'),
     url(r'^become_owner/$', 'main.views.become_owner'),
 
-    url(r'^check/$', 'main.views.check'),
-
     url(r'^addproperty/$', 'main.views.add_property'),
     url(r'^editproperty/(?P<pk>.+)/$', 'main.views.edit_property'),
     url(r'^addimage/(?P<pk>.+)/$', 'main.views.add_image'),
@@ -34,10 +32,10 @@ urlpatterns = [
 
     url(r'chalets/$', 'main.views.chalets'),
     url(r'farms/$', 'main.views.farms'),
-    url(r'apartments', 'main.views.apartments'),
+    
+    url(r'apartments/$', 'main.views.apartments'),
 
     url(r'^ownerschedule/(?P<pk>[0-9]+)/$', 'main.views.owner_add_schedule'),
-
 
     url(r'^search/$','main.views.area_search'),
     url(r'^filter/$', 'main.views.filter'),
