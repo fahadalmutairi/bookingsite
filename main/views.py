@@ -309,13 +309,14 @@ def property_detail(request, pk):
             Rating.objects.create(rating_by_user=rating, property_object=property_object, user=request.user)
             context['form'] = form
 
+    if property_object.rating_set.all().count():
+        ratings_list = property_object.rating_set.all()
+        total = 0
+        for rating in ratings_list:
+            total += rating.rating_by_user
 
-    ratings_list = property_object.rating_set.all()
-    total = 0
-    for rating in ratings_list:
-        total += rating.rating_by_user
-    average = total / ratings_list.count()
-    context['average'] = average
+        average = total / ratings_list.count()
+        context['average'] = average
 
     return render(request, 'property_detail.html', context)
 
