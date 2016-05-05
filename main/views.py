@@ -1,4 +1,4 @@
-from main.forms import BookingForm, FilterTime, CustomUserCreationForm, CustomUserLoginForm, EditProfileForm, AreaSearchForm, AddPropertyForm, EditPropertyFrom,AddImageForm, OwnerAddScheduleForm  , CheckForm, \
+from main.forms import AddAddressForm, BookingForm, FilterTime, CustomUserCreationForm, CustomUserLoginForm, EditProfileForm, AreaSearchForm, AddPropertyForm, EditPropertyFrom,AddImageForm, OwnerAddScheduleForm  , CheckForm, \
     AddRatingForm
 from django.contrib.auth import authenticate, login, logout
 from django.utils.html import escape
@@ -239,8 +239,23 @@ def add_property(request):
             property_image.image = form.cleaned_data['img']
             property_image.save()
 
-            return redirect('/profile/')
+            return redirect('/add_address/%s/' %property_object.pk)
     return render(request, 'add_property.html', context)
+
+def add_address(request, pk):
+    context = {}
+    context['form'] = AddAddressForm()
+    context['property'] = Property.objects.get(pk=pk)
+    if request.method == 'POST':
+        form = AddAddressForm(request.POST)
+
+        if form.is_valid():
+
+            address = form.save()
+            context['property'].address = address
+            context['property'].save()
+            return redirect('/property_list/' )
+    return render(request, 'add_address.html', context)
 
 
 def edit_property(request, pk):

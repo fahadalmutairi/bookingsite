@@ -6,6 +6,11 @@ from main.models import Property, PropertyImages, Address, Schedule, Booking,Cus
 import datetime
 from django.forms.extras.widgets import SelectDateWidget
 
+class AddAddressForm(forms.ModelForm):
+	class Meta:
+		model = Address
+		fields = '__all__'
+
 class FilterTime(forms.Form):
 	start = forms.DateField(widget=SelectDateWidget)
 	end = forms.DateField(widget=SelectDateWidget)
